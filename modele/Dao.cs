@@ -262,5 +262,99 @@ namespace Mediatek86.modele
             }
         }
 
+        /// <summary>
+        /// Création d'un livre dans la base de donnée
+        /// </summary>
+        /// <param name="exemplaire"></param>
+        /// <returns>true si l'insertion a pu se faire</returns>
+        public static bool CreerLivre(Livre livre)
+        {
+            try
+            {
+                string req = "insert into document values (@id, @titre, @image, @idRayon, @idPublic, @idGenre)";
+                Dictionary<string, object> parameters = new Dictionary<string, object>
+                {
+                    { "@id", livre.Id},
+                    { "@titre", livre.Titre},
+                    { "@image", livre.Image},
+                    { "@idRayon", livre.IdRayon},
+                    { "@idPublic", livre.IdPublic},
+                    { "@idGenre", livre.IdGenre},
+                };
+                BddMySql curs = BddMySql.GetInstance(connectionString);
+                curs.ReqUpdate(req, parameters);
+                curs.Close();
+
+                req = "insert into livres_dvd values (@id)";
+                parameters = new Dictionary<string, object>
+                {
+                    { "@id", livre.Id},
+                };
+                curs = BddMySql.GetInstance(connectionString);
+                curs.ReqUpdate(req, parameters);
+                curs.Close();
+
+                req = "insert into livre values (@id, @ISBN, @auteur, @collection)";
+                parameters = new Dictionary<string, object>
+                {
+                    { "@id", livre.Id},
+                    { "@ISBN", livre.Isbn},
+                    { "@auteur", livre.Auteur},
+                    { "@collection", livre.Collection},
+                };
+                curs = BddMySql.GetInstance(connectionString);
+                curs.ReqUpdate(req, parameters);
+                curs.Close();
+                return true;
+            }
+            catch
+            {
+                return false;
+            }
+        }
+
+        /// <summary>
+        /// Création d'un livre dans la base de donnée
+        /// </summary>
+        /// <param name="exemplaire"></param>
+        /// <returns>true si l'insertion a pu se faire</returns>
+        public static bool SupprimerLivre(string livreId)
+        {
+            try
+            {
+                string req = "DELETE FROM livre WHERE id = (@id)";
+                Dictionary<string, object> parameters = new Dictionary<string, object>
+                {
+                    { "@id", livreId}
+                };
+                BddMySql curs = BddMySql.GetInstance(connectionString);
+                curs.ReqUpdate(req, parameters);
+                curs.Close();
+
+                req = "DELETE FROM livres_dvd WHERE id = (@id)";
+                parameters = new Dictionary<string, object>
+                {
+                    { "@id", livreId}
+                };
+                curs = BddMySql.GetInstance(connectionString);
+                curs.ReqUpdate(req, parameters);
+                curs.Close();
+
+                req = "DELETE FROM document WHERE id = (@id)";
+                parameters = new Dictionary<string, object>
+                {
+                    { "@id", livreId}
+                };
+                curs = BddMySql.GetInstance(connectionString);
+                curs.ReqUpdate(req, parameters);
+                curs.Close();
+                return true;
+            }
+            catch
+            {
+                return false;
+            }
+        }
+
     }
 }

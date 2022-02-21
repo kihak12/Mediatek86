@@ -103,6 +103,21 @@ namespace Mediatek86.controleur
             return Dao.CreerExemplaire(exemplaire);
         }
 
+        /// <summary>
+        /// Ajouté un livre dans la bdd
+        /// </summary>
+        /// <param name="exemplaire">L'objet Exemplaire concerné</param>
+        /// <returns>True si la création a pu se faire</returns>
+        public bool CreerLivre(Livre livre)
+        {
+            return Dao.CreerLivre(livre);
+        }
+
+        public bool SupprimerLivre(string livreId)
+        {
+            return Dao.SupprimerLivre(livreId);
+        }
+
     }
 
 }

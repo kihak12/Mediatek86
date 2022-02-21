@@ -21,6 +21,9 @@ namespace Mediatek86.vue
         private readonly BindingSource bdgGenres = new BindingSource();
         private readonly BindingSource bdgPublics = new BindingSource();
         private readonly BindingSource bdgRayons = new BindingSource();
+        private readonly BindingSource bdgGenresModif = new BindingSource();
+        private readonly BindingSource bdgPublicsModif = new BindingSource();
+        private readonly BindingSource bdgRayonsModif = new BindingSource();
         private readonly BindingSource bdgRevuesListe = new BindingSource();
         private readonly BindingSource bdgExemplairesListe = new BindingSource();
         private List<Livre> lesLivres = new List<Livre>();
@@ -395,6 +398,9 @@ namespace Mediatek86.vue
             RemplirComboCategorie(controle.GetAllGenres(), bdgGenres, cbxLivresGenres);
             RemplirComboCategorie(controle.GetAllPublics(), bdgPublics, cbxLivresPublics);
             RemplirComboCategorie(controle.GetAllRayons(), bdgRayons, cbxLivresRayons);
+            RemplirComboCategorie(controle.GetAllGenres(), bdgGenresModif, cbxLivresGenresModif);
+            RemplirComboCategorie(controle.GetAllPublics(), bdgPublicsModif, cbxLivresPublicsModif);
+            RemplirComboCategorie(controle.GetAllRayons(), bdgRayonsModif, cbxLivresRayonsModif);
             RemplirLivresListeComplete();
         }
 
@@ -492,8 +498,23 @@ namespace Mediatek86.vue
             txbLivresGenre.Text = livre.Genre;
             txbLivresPublic.Text = livre.Public;
             txbLivresRayon.Text = livre.Rayon;
-            txbLivresTitre.Text = livre.Titre;      
+            txbLivresTitre.Text = livre.Titre;   
             string image = livre.Image;
+
+            txbLivresAuteurModif.Text = livre.Auteur;
+            txbLivresCollectionModif.Text = livre.Collection;
+            txbLivresImageModif.Text = livre.Image;
+            txbLivresIsbnModif.Text = livre.Isbn;
+            txbLivresNumeroModif.Text = livre.Id;
+            txbLivresTitreModif.Text = livre.Titre;
+
+            cbxLivresPublicsModif.Text = "";
+            cbxLivresRayonsModif.Text = "";
+            cbxLivresGenresModif.Text = "";
+            cbxLivresPublicsModif.SelectedText = livre.Public;
+            cbxLivresRayonsModif.SelectedText = livre.Rayon;
+            cbxLivresGenresModif.SelectedText = livre.Genre;
+
             try
             {
                 pcbLivresImage.Image = Image.FromFile(image);
@@ -1278,5 +1299,108 @@ namespace Mediatek86.vue
 
         #endregion
 
+        private void BtnLivresAjout_Click(object sender, EventArgs e)
+        {
+            string rayonId = getRayonId(cbxLivresRayonsModif.Text);
+            string genreId = getGenresId(cbxLivresGenresModif.Text);
+            string publicId = getPublicId(cbxLivresPublicsModif.Text);
+            Livre livre = new Livre(
+                txbLivresNumeroModif.Text,
+                txbLivresTitreModif.Text,
+                txbLivresImageModif.Text,
+                txbLivresIsbnModif.Text,
+                txbLivresAuteurModif.Text,
+                txbLivresCollectionModif.Text,
+                genreId,
+                cbxLivresGenresModif.Text,
+                publicId,
+                cbxLivresPublicsModif.Text,
+                rayonId,
+                cbxLivresRayonsModif.Text
+                );
+            if (controle.CreerLivre(livre)) {
+                MessageBox.Show("Livre ajouté avec success");
+            }
+            else
+            {
+                MessageBox.Show("Un livre porte déjà cet Id");
+            }
+            this.Controls.Clear();
+            this.InitializeComponent();
+
+            VideLivresInfos();
+            VideLivresZones();
+
+            List<Livre> desLivres = new List<Livre>(controle.GetAllLivres());
+
+            RemplirLivresListe(desLivres);
+            this.InitializeComponent();
+
+            MessageBox.Show("Refresh");
+        }
+
+        private string getRayonId(string sender)
+        {
+            List<Categorie> rayons = controle.GetAllRayons();
+            foreach (Categorie item in rayons)
+            {
+                if(item.Libelle == sender)
+                {
+                    return item.Id;
+                }
+            }
+            return null;
+        }
+
+        private string getPublicId(string sender)
+        {
+            List<Categorie> rayons = controle.GetAllPublics();
+            foreach (Categorie item in rayons)
+            {
+                if (item.Libelle == sender)
+                {
+                    return item.Id;
+                }
+            }
+            return null;
+        }
+
+        private string getGenresId(string sender)
+        {
+            List<Categorie> rayons = controle.GetAllGenres();
+            foreach (Categorie item in rayons)
+            {
+                if (item.Libelle == sender)
+                {
+                    return item.Id;
+                }
+            }
+            return null;
+        }
+
+        private void BtnLivresSuppr_Click(object sender, EventArgs e)
+        {
+
+            if ((MessageBox.Show("Êtes vous sur de vouloir supprimé ce livre ?", "Suppression d'un livre",MessageBoxButtons.YesNo, MessageBoxIcon.Question,MessageBoxDefaultButton.Button1) == System.Windows.Forms.DialogResult.Yes))
+            {
+
+                if (controle.SupprimerLivre(txbLivresNumeroModif.Text))
+                {
+                    MessageBox.Show("Livre supprimé avec success");
+                }
+                else
+                {
+                    MessageBox.Show("Echec de la supression");
+                }
+
+                VideLivresInfos();
+                VideLivresZones();
+
+                List<Livre> desLivres = new List<Livre>(controle.GetAllLivres());
+
+
+                RemplirLivresListe(desLivres);
+            }
+        }
     }
 }
