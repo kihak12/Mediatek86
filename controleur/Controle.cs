@@ -113,9 +113,60 @@ namespace Mediatek86.controleur
             return Dao.CreerLivre(livre);
         }
 
-        public bool SupprimerLivre(string livreId)
+        /// <summary>
+        /// Modifier un livre dans la bdd
+        /// </summary>
+        /// <param name="livre">L'objet Exemplaire concerné</param>
+        /// <returns>True si la création a pu se faire</returns>
+        public bool UpdateLivre(Livre livre)
         {
-            return Dao.SupprimerLivre(livreId);
+            return Dao.UpdateLivre(livre);
+        }
+
+        /// <summary>
+        /// Ajouté un Dvd dans la bdd
+        /// </summary>
+        /// <param name="dvd">L'objet Exemplaire concerné</param>
+        /// <returns>True si la création a pu se faire</returns>
+        public bool CreerDvd(Dvd dvd)
+        {
+            return Dao.CreerDvd(dvd);
+        }
+
+        /// <summary>
+        /// Modifier un dvd dans la bdd
+        /// </summary>
+        /// <param name="dvd">L'objet Exemplaire concerné</param>
+        /// <returns>True si la création a pu se faire</returns>
+        public bool UpdateDvd(Dvd dvd)
+        {
+            return Dao.UpdateDvd(dvd);
+        }
+
+        /// <summary>
+        /// Ajouté une revue dans la bdd
+        /// </summary>
+        /// <param name="revue">L'objet Exemplaire concerné</param>
+        /// <returns>True si la création a pu se faire</returns>
+        public bool CreerRevue(Revue revue)
+        {
+            return Dao.CreerRevue(revue);
+        }
+
+        /// <summary>
+        /// Modifier une revue dans la bdd
+        /// </summary>
+        /// <param name="revue">L'objet Exemplaire concerné</param>
+        /// <returns>True si la création a pu se faire</returns>
+        public bool UpdateRevue(Revue revue)
+        {
+            return Dao.UpdateRevue(revue);
+        }
+
+
+        public bool SupprimerBdd(string Id, string table)
+        {
+            return Dao.SupprimerBdd(Id, table);
         }
 
     }

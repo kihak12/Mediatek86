@@ -265,7 +265,7 @@ namespace Mediatek86.modele
         /// <summary>
         /// Création d'un livre dans la base de donnée
         /// </summary>
-        /// <param name="exemplaire"></param>
+        /// <param name="livre"></param>
         /// <returns>true si l'insertion a pu se faire</returns>
         public static bool CreerLivre(Livre livre)
         {
@@ -314,36 +314,169 @@ namespace Mediatek86.modele
         }
 
         /// <summary>
-        /// Création d'un livre dans la base de donnée
+        /// Suppression d'un livre dans la base de donnée
         /// </summary>
-        /// <param name="exemplaire"></param>
-        /// <returns>true si l'insertion a pu se faire</returns>
-        public static bool SupprimerLivre(string livreId)
+        /// <param name="Id"></param>
+        /// <param name="table"></param>
+        /// <returns>true si la supression a pu se faire</returns>
+        public static bool SupprimerBdd(string Id, string table)
         {
             try
             {
-                string req = "DELETE FROM livre WHERE id = (@id)";
+                if (checkCommand(Id))
+                {
+                    string req = "DELETE FROM " + table + " WHERE id = (@id)";
+                    Dictionary<string, object> parameters = new Dictionary<string, object>
+                {
+                    { "@id", Id}
+                };
+                    BddMySql curs = BddMySql.GetInstance(connectionString);
+                    curs.ReqUpdate(req, parameters);
+                    curs.Close();
+
+                    if (table != "revue")
+                    {
+                        req = "DELETE FROM livres_dvd WHERE id = (@id)";
+                        parameters = new Dictionary<string, object>
+                        {
+                            { "@id", Id}
+                        };
+                        curs = BddMySql.GetInstance(connectionString);
+                        curs.ReqUpdate(req, parameters);
+                        curs.Close();
+
+                        req = "DELETE FROM document WHERE id = (@id)";
+                        parameters = new Dictionary<string, object>
+                        {
+                            { "@id", Id}
+                        };
+                        curs = BddMySql.GetInstance(connectionString);
+                        curs.ReqUpdate(req, parameters);
+                        curs.Close();
+
+                        return true;
+                    }
+                    else if(checkExemplaire(Id))
+                    {
+                        req = "DELETE FROM revue WHERE id = (@id)";
+                        parameters = new Dictionary<string, object>
+                        {
+                            { "@id", Id}
+                        };
+                        curs = BddMySql.GetInstance(connectionString);
+                        curs.ReqUpdate(req, parameters);
+                        curs.Close();
+
+                        req = "DELETE FROM document WHERE id = (@id)";
+                        parameters = new Dictionary<string, object>
+                        {
+                            { "@id", Id}
+                        };
+                        curs = BddMySql.GetInstance(connectionString);
+                        curs.ReqUpdate(req, parameters);
+                        curs.Close();
+
+                        return true;
+                    }
+                    else
+                    {
+                        return false;
+                    }
+                }
+                else
+                {
+                    return false;
+                }
+                
+            }
+            catch
+            {
+                return false;
+            }
+        }
+
+        /// <summary>
+        /// Modification d'un livre dans la base de donnée
+        /// </summary>
+        /// <param name="livre"></param>
+        /// <returns>true si l'insertion a pu se faire</returns>
+        public static bool UpdateLivre(Livre livre)
+        {
+            try
+            {
+                string req = "UPDATE document SET titre=(@titre), image=(@image), idRayon=(@idRayon), idPublic=(@idPublic), idGenre=(@idGenre) WHERE id=(@id)";
                 Dictionary<string, object> parameters = new Dictionary<string, object>
                 {
-                    { "@id", livreId}
+                    { "@titre", livre.Titre},
+                    { "@image", livre.Image},
+                    { "@idRayon", livre.IdRayon},
+                    { "@idPublic", livre.IdPublic},
+                    { "@idGenre", livre.IdGenre},
+                    { "@id", livre.Id},
                 };
                 BddMySql curs = BddMySql.GetInstance(connectionString);
                 curs.ReqUpdate(req, parameters);
                 curs.Close();
 
-                req = "DELETE FROM livres_dvd WHERE id = (@id)";
+                req = "UPDATE livre SET ISBN=@ISBN, auteur=@auteur, collection=@collection WHERE id=(@id)";
                 parameters = new Dictionary<string, object>
                 {
-                    { "@id", livreId}
+                    { "@ISBN", livre.Isbn},
+                    { "@auteur", livre.Auteur},
+                    { "@collection", livre.Collection},
+                    { "@id", livre.Id},
                 };
                 curs = BddMySql.GetInstance(connectionString);
                 curs.ReqUpdate(req, parameters);
                 curs.Close();
 
-                req = "DELETE FROM document WHERE id = (@id)";
+                return true;
+            }
+            catch
+            {
+                return false;
+            }
+        }
+
+        /// <summary>
+        /// Création d'un Dvd dans la base de donnée
+        /// </summary>
+        /// <param name="dvd"></param>
+        /// <returns>true si l'insertion a pu se faire</returns>
+        public static bool CreerDvd(Dvd dvd)
+        {
+            try
+            {
+                string req = "insert into document values (@id, @titre, @image, @idRayon, @idPublic, @idGenre)";
+                Dictionary<string, object> parameters = new Dictionary<string, object>
+                {
+                    { "@id", dvd.Id},
+                    { "@titre", dvd.Titre},
+                    { "@image", dvd.Image},
+                    { "@idRayon", dvd.IdRayon},
+                    { "@idPublic", dvd.IdPublic},
+                    { "@idGenre", dvd.IdGenre},
+                };
+                BddMySql curs = BddMySql.GetInstance(connectionString);
+                curs.ReqUpdate(req, parameters);
+                curs.Close();
+
+                req = "insert into livres_dvd values (@id)";
                 parameters = new Dictionary<string, object>
                 {
-                    { "@id", livreId}
+                    { "@id", dvd.Id},
+                };
+                curs = BddMySql.GetInstance(connectionString);
+                curs.ReqUpdate(req, parameters);
+                curs.Close();
+
+                req = "insert into dvd values (@id, @synopsis, @realisateur, @duree)";
+                parameters = new Dictionary<string, object>
+                {
+                    { "@id", dvd.Id},
+                    { "@synopsis", dvd.Synopsis},
+                    { "@realisateur", dvd.Realisateur},
+                    { "@duree", dvd.Duree},
                 };
                 curs = BddMySql.GetInstance(connectionString);
                 curs.ReqUpdate(req, parameters);
@@ -356,5 +489,226 @@ namespace Mediatek86.modele
             }
         }
 
+        /// <summary>
+        /// Modification d'un Dvd dans la base de donnée
+        /// </summary>
+        /// <param name="dvd"></param>
+        /// <returns>true si la modification a pu se faire</returns>
+        public static bool UpdateDvd(Dvd dvd)
+        {
+            try
+            {
+                string req = "UPDATE document SET titre=(@titre), image=(@image), idRayon=(@idRayon), idPublic=(@idPublic), idGenre=(@idGenre) WHERE id=(@id)";
+                Dictionary<string, object> parameters = new Dictionary<string, object>
+                {
+                    { "@titre", dvd.Titre},
+                    { "@image", dvd.Image},
+                    { "@idRayon", dvd.IdRayon},
+                    { "@idPublic", dvd.IdPublic},
+                    { "@idGenre", dvd.IdGenre},
+                    { "@id", dvd.Id},
+                };
+                BddMySql curs = BddMySql.GetInstance(connectionString);
+                curs.ReqUpdate(req, parameters);
+                curs.Close();
+
+                req = "UPDATE dvd SET synopsis=@synopsis, realisateur=@realisateur, duree=@duree WHERE id=(@id)";
+                parameters = new Dictionary<string, object>
+                {
+                    { "@synopsis", dvd.Synopsis},
+                    { "@realisateur", dvd.Realisateur},
+                    { "@duree", dvd.Duree},
+                    { "@id", dvd.Id},
+                };
+                curs = BddMySql.GetInstance(connectionString);
+                curs.ReqUpdate(req, parameters);
+                curs.Close();
+
+                return true;
+            }
+            catch
+            {
+                return false;
+            }
+        }
+
+
+        /// <summary>
+        /// Création d'une revue dans la base de donnée
+        /// </summary>
+        /// <param name="revue"></param>
+        /// <returns>true si l'insertion a pu se faire</returns>
+        public static bool CreerRevue(Revue revue)
+        {
+            try
+            {
+                string req = "insert into document values (@id, @titre, @image, @idRayon, @idPublic, @idGenre)";
+                Dictionary<string, object> parameters = new Dictionary<string, object>
+                {
+                    { "@id", revue.Id},
+                    { "@titre", revue.Titre},
+                    { "@image", revue.Image},
+                    { "@idRayon", revue.IdRayon},
+                    { "@idPublic", revue.IdPublic},
+                    { "@idGenre", revue.IdGenre},
+                };
+                BddMySql curs = BddMySql.GetInstance(connectionString);
+                curs.ReqUpdate(req, parameters);
+                curs.Close();
+
+                int check = 0;
+                if (revue.Empruntable)
+                {
+                    check = 1;
+                }
+
+                req = "insert into revue values (@id, @empruntable, @periodicite, @delaiMiseADispo)";
+                parameters = new Dictionary<string, object>
+                {
+                    { "@id", revue.Id},
+                    { "@empruntable", check},
+                    { "@periodicite", revue.Periodicite},
+                    { "@delaiMiseADispo", revue.DelaiMiseADispo},
+                };
+                curs = BddMySql.GetInstance(connectionString);
+                curs.ReqUpdate(req, parameters);
+                curs.Close();
+                return true;
+            }
+            catch
+            {
+                return false;
+            }
+        }
+
+        /// <summary>
+        /// Modification d'une Revue dans la base de donnée
+        /// </summary>
+        /// <param name="revue"></param>
+        /// <returns>true si la modification a pu se faire</returns>
+        public static bool UpdateRevue(Revue revue)
+        {
+            try
+            {
+                string req = "UPDATE document SET titre=(@titre), image=(@image), idRayon=(@idRayon), idPublic=(@idPublic), idGenre=(@idGenre) WHERE id=(@id)";
+                Dictionary<string, object> parameters = new Dictionary<string, object>
+                {
+                    { "@titre", revue.Titre},
+                    { "@image", revue.Image},
+                    { "@idRayon", revue.IdRayon},
+                    { "@idPublic", revue.IdPublic},
+                    { "@idGenre", revue.IdGenre},
+                    { "@id", revue.Id},
+                };
+                BddMySql curs = BddMySql.GetInstance(connectionString);
+                curs.ReqUpdate(req, parameters);
+                curs.Close();
+
+                int check = 0;
+                if (revue.Empruntable)
+                {
+                    check = 1;
+                }
+
+                req = "UPDATE revue SET empruntable=@empruntable, periodicite=@periodicite, delaiMiseADispo=@delaiMiseADispo WHERE id=(@id)";
+                parameters = new Dictionary<string, object>
+                {
+                    { "@empruntable", check},
+                    { "@periodicite", revue.Periodicite},
+                    { "@delaiMiseADispo", revue.DelaiMiseADispo},
+                    { "@id", revue.Id},
+                };
+                curs = BddMySql.GetInstance(connectionString);
+                curs.ReqUpdate(req, parameters);
+                curs.Close();
+
+                return true;
+            }
+            catch
+            {
+                return false;
+            }
+        }
+
+        public static bool checkCommand(string Id)
+        {
+            int y = 0; 
+            string req = "Select * from commandedocument WHERE idLivreDvd=(@id)";
+            Dictionary<string, object> parameters = new Dictionary<string, object>
+                {
+                    { "@id", Id},
+                };
+            BddMySql curs = BddMySql.GetInstance(connectionString);
+            curs.ReqSelect(req, parameters);
+
+            while (curs.Read())
+            {
+                y++;
+            }
+
+            curs.Close();
+            if (y == 0)
+            {
+                return true;
+            }
+            else
+            {
+                return false;
+            }
+        }
+
+        public static bool checkAbonnement(string Id)
+        {
+            int y = 0;
+            string req = "Select * from abonnement WHERE idRevue=(@id)";
+            Dictionary<string, object> parameters = new Dictionary<string, object>
+                {
+                    { "@id", Id},
+                };
+            BddMySql curs = BddMySql.GetInstance(connectionString);
+            curs.ReqSelect(req, parameters);
+
+            while (curs.Read())
+            {
+                y++;
+            }
+
+            curs.Close();
+            if (y == 0)
+            {
+                return true;
+            }
+            else
+            {
+                return false;
+            }
+        }
+
+        public static bool checkExemplaire(string Id)
+        {
+            int y = 0;
+            string req = "Select * from exemplaire WHERE id=(@id)";
+            Dictionary<string, object> parameters = new Dictionary<string, object>
+                {
+                    { "@id", Id},
+                };
+            BddMySql curs = BddMySql.GetInstance(connectionString);
+            curs.ReqSelect(req, parameters);
+
+            while (curs.Read())
+            {
+                y++;
+            }
+
+            curs.Close();
+            if (y == 0)
+            {
+                return true;
+            }
+            else
+            {
+                return false;
+            }
+        }
     }
 }
