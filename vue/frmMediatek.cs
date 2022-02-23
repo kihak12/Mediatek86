@@ -423,6 +423,8 @@ namespace Mediatek86.vue
             {
                 MessageBox.Show("Une revue porte déjà ce numéro");
             }
+            lesRevues = controle.GetAllRevues();
+            RemplirRevuesListeComplete();
         }
 
         private void BtnRevueSuppr_Click(object sender, EventArgs e)
@@ -439,6 +441,8 @@ namespace Mediatek86.vue
                     MessageBox.Show("Echec de la supression, Cette revue posséde une commande ou un exemplaire.");
                 }
             }
+            lesRevues = controle.GetAllRevues();
+            RemplirRevuesListeComplete();
         }
 
         private void BtnRevuesModif_Click(object sender, EventArgs e)
@@ -471,6 +475,8 @@ namespace Mediatek86.vue
                     MessageBox.Show("Erreur lors de la modification");
                 }
             }
+            lesRevues = controle.GetAllRevues();
+            RemplirRevuesListeComplete();
         }
 
         #endregion
@@ -837,7 +843,10 @@ namespace Mediatek86.vue
             {
                 MessageBox.Show("Un livre porte déjà cet Id");
             }
-            
+
+            lesLivres = controle.GetAllLivres();
+            RemplirLivresListeComplete();
+
         }
 
         private void BtnLivresSuppr_Click(object sender, EventArgs e)
@@ -856,6 +865,8 @@ namespace Mediatek86.vue
                 }
 
             }
+            lesLivres = controle.GetAllLivres();
+            RemplirLivresListeComplete();
         }
 
         private void BtnLivresModif_Click(object sender, EventArgs e)
@@ -888,6 +899,8 @@ namespace Mediatek86.vue
                     MessageBox.Show("Erreur lors de la modification");
                 }
             }
+            lesLivres = controle.GetAllLivres();
+            RemplirLivresListeComplete();
 
         }
 
@@ -1254,6 +1267,8 @@ namespace Mediatek86.vue
             {
                 MessageBox.Show("Un Dvd porte déjà ce numéro");
             }
+            lesDvd = controle.GetAllDvd();
+            RemplirDvdListeComplete();
         }
 
         private void BtnDvdSuppr_Click(object sender, EventArgs e)
@@ -1270,6 +1285,8 @@ namespace Mediatek86.vue
                     MessageBox.Show("Echec de la supression, ce dvd doit posséder une commande.");
                 }
             }
+            lesDvd = controle.GetAllDvd();
+            RemplirDvdListeComplete();
         }
 
         private void BtnDvdModif_Click(object sender, EventArgs e)
@@ -1302,6 +1319,8 @@ namespace Mediatek86.vue
                     MessageBox.Show("Erreur lors de la modification (Max 20 caractère pour le réalisateur)");
                 }
             }
+            lesDvd = controle.GetAllDvd();
+            RemplirDvdListeComplete();
         }
 
         #endregion
@@ -1573,7 +1592,7 @@ namespace Mediatek86.vue
         #endregion
 
 
-
+        #region utils
         private string getRayonId(string sender)
         {
             List<Categorie> rayons = controle.GetAllRayons();
@@ -1612,6 +1631,7 @@ namespace Mediatek86.vue
             }
             return null;
         }
+        #endregion
 
     }
 }

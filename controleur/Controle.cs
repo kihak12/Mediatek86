@@ -45,7 +45,7 @@ namespace Mediatek86.controleur
         /// <returns>Collection d'objets Livre</returns>
         public List<Livre> GetAllLivres()
         {
-            return lesLivres;
+            return Dao.GetAllLivres();
         }
 
         /// <summary>
@@ -54,7 +54,7 @@ namespace Mediatek86.controleur
         /// <returns>Collection d'objets dvd</returns>
         public List<Dvd> GetAllDvd()
         {
-            return lesDvd;
+            return Dao.GetAllDvd();
         }
 
         /// <summary>
@@ -63,7 +63,7 @@ namespace Mediatek86.controleur
         /// <returns>Collection d'objets Revue</returns>
         public List<Revue> GetAllRevues()
         {
-            return lesRevues;
+            return Dao.GetAllRevues();
         }
 
         /// <summary>

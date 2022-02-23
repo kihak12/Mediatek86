@@ -323,13 +323,13 @@ namespace Mediatek86.modele
         {
             try
             {
-                if (checkCommand(Id))
+                if (checkCommand(Id) && checkExemplaire(Id))
                 {
                     string req = "DELETE FROM " + table + " WHERE id = (@id)";
                     Dictionary<string, object> parameters = new Dictionary<string, object>
-                {
-                    { "@id", Id}
-                };
+                    {
+                        { "@id", Id}
+                    };
                     BddMySql curs = BddMySql.GetInstance(connectionString);
                     curs.ReqUpdate(req, parameters);
                     curs.Close();
@@ -356,7 +356,7 @@ namespace Mediatek86.modele
 
                         return true;
                     }
-                    else if(checkExemplaire(Id))
+                    else
                     {
                         req = "DELETE FROM revue WHERE id = (@id)";
                         parameters = new Dictionary<string, object>
@@ -377,10 +377,6 @@ namespace Mediatek86.modele
                         curs.Close();
 
                         return true;
-                    }
-                    else
-                    {
-                        return false;
                     }
                 }
                 else
