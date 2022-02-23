@@ -18,6 +18,8 @@ namespace Mediatek86.vue
 
         private readonly BindingSource bdgLivresListe = new BindingSource();
         private readonly BindingSource bdgDvdListe = new BindingSource();
+        private readonly BindingSource bdgCommandeLivresListe = new BindingSource();
+        private readonly BindingSource bdgCommandeDvdListe = new BindingSource();
         private readonly BindingSource bdgGenres = new BindingSource();
         private readonly BindingSource bdgPublics = new BindingSource();
         private readonly BindingSource bdgRayons = new BindingSource();
@@ -27,6 +29,7 @@ namespace Mediatek86.vue
         private readonly BindingSource bdgRevuesListe = new BindingSource();
         private readonly BindingSource bdgExemplairesListe = new BindingSource();
         private List<Livre> lesLivres = new List<Livre>();
+        private List<Commande> lesCommandesLivres = new List<Commande>();
         private List<Dvd> lesDvd = new List<Dvd>();
         private List<Revue> lesRevues = new List<Revue>();
         private List<Exemplaire> lesExemplaires = new List<Exemplaire>();
@@ -1633,5 +1636,120 @@ namespace Mediatek86.vue
         }
         #endregion
 
+
+        #region commande livre
+
+        //-----------------------------------------------------------
+        // ONGLET "COMMANDE LIVRE"
+        //-----------------------------------------------------------
+
+        /// <summary>
+        /// Ouverture de l'onglet Commandes de livres : 
+        /// appel des méthodes pour remplir le datagrid des livres et des combos (genre, rayon, public)
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void tabCommandeLivres_Enter_1(object sender, EventArgs e)
+        {
+            lesCommandesLivres = controle.GetAllCommandeLivresDvd("livre");
+            RemplirComboCategorie(controle.GetAllGenres(), bdgGenres, cbxCommandeLivresGenres);
+            RemplirComboCategorie(controle.GetAllPublics(), bdgPublics, cbxCommandeLivresPublics);
+            RemplirComboCategorie(controle.GetAllRayons(), bdgRayons, cbxCommandeLivresRayons);
+            RemplirCommandesLivresListeComplete();
+        }
+
+        /// <summary>
+        /// Remplit le dategrid avec la liste reçue en paramètre
+        /// </summary>
+        private void RemplirCommanbandesLivresListe(List<Commande> lesCommandesLivres)
+        {
+            bdgCommandeLivresListe.DataSource = lesCommandesLivres;
+            dgvCommandesLivresListe.DataSource = bdgCommandeLivresListe;
+            dgvCommandesLivresListe.Columns["IdSuivi"].Visible = false;
+            dgvCommandesLivresListe.Columns["Id"].HeaderText = "Numéro de commande";
+            dgvCommandesLivresListe.Columns["IdLivreDvd"].HeaderText = "Numéro du document";
+            dgvCommandesLivresListe.Columns["Montant"].HeaderText += "(€)";
+            dgvCommandesLivresListe.Columns["nbExemplaire"].HeaderText = "Nombre d'exemplaire(s)";
+            dgvCommandesLivresListe.Columns["DateCommande"].HeaderText = "Date de la commande";
+            dgvCommandesLivresListe.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.AllCells;
+            dgvCommandesLivresListe.Columns["Id"].DisplayIndex = 0;
+            dgvCommandesLivresListe.Columns["Etat"].DisplayIndex = 7;
+        }
+
+
+        /// <summary>
+        /// Affichage de la liste complète des commandes des livres
+        /// et annulation de toutes les recherches et filtres
+        /// </summary>
+        private void RemplirCommandesLivresListeComplete()
+        {
+            RemplirCommanbandesLivresListe(lesCommandesLivres);
+            VideLivresZones();
+        }
+
+
+
+        #endregion
+
+        private void dgvCommandesLivresListe_SelectionChanged(object sender, EventArgs e)
+        {
+            if (dgvCommandesLivresListe.CurrentCell != null)
+            {
+                try
+                {
+                    Commande commande = (Commande)bdgCommandeLivresListe.List[bdgCommandeLivresListe.Position];
+                    AfficheCommandeLivresInfos(commande);
+                }
+                catch
+                {
+                    VideCommandeLivresInfos();
+                }
+            }
+            else
+            {
+                VideCommandeLivresInfos();
+            }
+        }
+
+        /// <summary>
+        /// Affichage de la liste complète des commandes des livres
+        /// et annulation de toutes les recherches et filtres
+        /// </summary>
+        private void AfficheCommandeLivresInfos(Commande commande)
+        {
+            Livre livre = controle.selectLivreById(commande.IdLivreDvd);
+            txbLivresNumeroCommande.Text = livre.Id;
+            txbLivresTitreCommande.Text = livre.Titre;
+            txbLivresAuteurCommande.Text = livre.Auteur;
+            txbLivresCollectionCommande.Text = livre.Collection;
+            txbLivresGenreCommande.Text = livre.Genre;
+            txbLivresPublicCommande.Text = livre.Public;
+            txbLivresRayonCommande.Text = livre.Rayon;
+            txbLivresIsbnCommande.Text = livre.Isbn;
+
+            txbLivresDateCommande.Text = commande.DateCommande.ToString("D");
+            txbLivresNombreCommande.Text = commande.NbExemplaire.ToString();
+            txbLivresEtatCommande.Text = commande.Etat;
+
+            string image = livre.Image;
+            try
+            {
+                pcbLivresImageCommande.Image = Image.FromFile(image);
+            }
+            catch
+            {
+                pcbLivresImageCommande.Image = null;
+            }
+
+        }
+
+        /// <summary>
+        /// Affichage de la liste complète des commandes des livres
+        /// et annulation de toutes les recherches et filtres
+        /// </summary>
+        private void VideCommandeLivresInfos()
+        {
+            MessageBox.Show("Hello");
+        }
     }
 }

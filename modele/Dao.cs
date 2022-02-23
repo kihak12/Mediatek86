@@ -120,6 +120,39 @@ namespace Mediatek86.modele
         }
 
         /// <summary>
+        /// Retourne toutes les commandes de livres à partir de la BDD
+        /// </summary>
+        /// <returns>Liste d'objets Livre</returns>
+        public static List<Commande> GetAllCommandeLivresDvd(string type)
+        {
+            List<Commande> lesCommandesLivres = new List<Commande>();
+            string req = "SELECT commandedocument.*, commande.dateCommande, commande.montant, suivi.id AS id_suivi, suivi.Etat, document.titre FROM `commandedocument` INNER JOIN commande ON commande.id=commandedocument.id INNER JOIN suivi ON commandedocument.idSuivi=suivi.id INNER JOIN document ON document.id=commandedocument.idLivreDvd WHERE commandedocument.type=\"" + type + "\"";
+
+            BddMySql curs = BddMySql.GetInstance(connectionString);
+            curs.ReqSelect(req, null);
+
+            while (curs.Read())
+            {
+                string id = (string)curs.Field("id");
+                DateTime dateCommande = (DateTime)curs.Field("dateCommande");
+                double montant = (double)curs.Field("montant");
+                int nbExemplaire = (int)curs.Field("nbExemplaire");
+                string idLivreDvd = (string)curs.Field("idLivreDvd");
+                int idSuivi = (int)curs.Field("id_suivi");
+                string etat = (string)curs.Field("Etat");
+                string titre = (string)curs.Field("titre");
+
+                int idFinal = int.Parse(id);
+
+                Commande commande = new Commande(idFinal, dateCommande, montant, nbExemplaire, idLivreDvd, idSuivi, etat, titre);
+                lesCommandesLivres.Add(commande);
+            }
+            curs.Close();
+
+            return lesCommandesLivres;
+        }
+
+        /// <summary>
         /// Retourne toutes les dvd à partir de la BDD
         /// </summary>
         /// <returns>Liste d'objets Dvd</returns>
@@ -705,6 +738,36 @@ namespace Mediatek86.modele
             {
                 return false;
             }
+        }
+
+        public static Livre selectLivreById(string Id)
+        {
+            Livre livre = new Livre("", "", "", "", "", "", "", "", "", "","", "");
+            string req = "Select l.id, l.ISBN, l.auteur, d.titre, d.image, l.collection, d.idrayon, d.idpublic, d.idgenre, g.libelle as genre, p.libelle as public, r.libelle as rayon from livre l join document d on l.id=d.id join genre g on g.id=d.idGenre join public p on p.id=d.idPublic join rayon r on r.id=d.idRayon WHERE l.id="+Id+" order by titre;";
+
+            BddMySql curs = BddMySql.GetInstance(connectionString);
+            curs.ReqSelect(req, null);
+
+            if (curs.Read())
+            {
+                string id = (string)curs.Field("id");
+                string isbn = (string)curs.Field("ISBN");
+                string auteur = (string)curs.Field("auteur");
+                string titre = (string)curs.Field("titre");
+                string image = (string)curs.Field("image");
+                string collection = (string)curs.Field("collection");
+                string idgenre = (string)curs.Field("idgenre");
+                string idrayon = (string)curs.Field("idrayon");
+                string idpublic = (string)curs.Field("idpublic");
+                string genre = (string)curs.Field("genre");
+                string lepublic = (string)curs.Field("public");
+                string rayon = (string)curs.Field("rayon");
+                livre = new Livre(id, titre, image, isbn, auteur, collection, idgenre, genre,
+                    idpublic, lepublic, idrayon, rayon);
+            }
+
+            curs.Close();
+            return livre;
         }
     }
 }

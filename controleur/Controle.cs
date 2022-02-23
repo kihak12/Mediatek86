@@ -49,6 +49,24 @@ namespace Mediatek86.controleur
         }
 
         /// <summary>
+        /// getter sur la liste des commandes livres
+        /// </summary>
+        /// <returns>Collection d'objets Livre</returns>
+        public Livre selectLivreById(string id)
+        {
+            return Dao.selectLivreById(id);
+        }
+
+        /// <summary>
+        /// getter sur la liste des commandes livres
+        /// </summary>
+        /// <returns>Collection d'objets Livre</returns>
+        public List<Commande> GetAllCommandeLivresDvd(string type)
+        {
+            return Dao.GetAllCommandeLivresDvd(type);
+        }
+
+        /// <summary>
         /// getter sur la liste des Dvd
         /// </summary>
         /// <returns>Collection d'objets dvd</returns>
