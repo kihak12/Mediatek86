@@ -659,6 +659,74 @@ namespace Mediatek86.modele
             }
         }
 
+        /// <summary>
+        /// Modification de l'etat de livraison dans la base de donnée
+        /// </summary>
+        /// <param name="commande"></param>
+        /// <returns>true si la modification a pu se faire</returns>
+        public static bool ModifyEtatCommande(Commande commande, string etat)
+        {
+            try
+            {
+                string req = "UPDATE commandedocument SET idsuivi=(@idsuivi) WHERE id=(@id)";
+                Dictionary<string, object> parameters = new Dictionary<string, object>
+                {
+                    { "@idsuivi", etat},
+                    { "@id", commande.Id},
+                };
+                BddMySql curs = BddMySql.GetInstance(connectionString);
+                curs.ReqUpdate(req, parameters);
+                curs.Close();
+
+                return true;
+            }
+            catch
+            {
+                return false;
+            }
+        }
+
+        /// <summary>
+        /// Création d'une revue dans la base de donnée
+        /// </summary>
+        /// <param name="revue"></param>
+        /// <returns>true si l'insertion a pu se faire</returns>
+        public static bool CreerCommande(Commande commande, Livre livre)
+        {
+            try
+            {
+                string req = "insert into commande values (@id, @dateCommande, @montant)";
+                Dictionary<string, object> parameters = new Dictionary<string, object>
+                {
+                    { "@id", commande.Id},
+                    { "@dateCommande", commande.DateCommande},
+                    { "@montant", commande.Montant},
+                };
+                BddMySql curs = BddMySql.GetInstance(connectionString);
+                curs.ReqUpdate(req, parameters);
+                curs.Close();
+
+                req = "insert into commandedocument values (@id, @nbExemplaire, @idLivreDvd, @idSuivi, @type)";
+                parameters = new Dictionary<string, object>
+                {
+                    { "@id", commande.Id},
+                    { "@nbExemplaire", commande.NbExemplaire},
+                    { "@idLivreDvd", livre.Id},
+                    { "@idSuivi", commande.IdSuivi},
+                    { "@type", "livre"},
+                };
+                curs = BddMySql.GetInstance(connectionString);
+                curs.ReqUpdate(req, parameters);
+                curs.Close();
+
+                return true;
+            }
+            catch
+            {
+                return false;
+            }
+        }
+
         public static bool checkCommand(string Id)
         {
             int y = 0; 
@@ -769,5 +837,42 @@ namespace Mediatek86.modele
             curs.Close();
             return livre;
         }
+
+        /// <summary>
+        /// Suppression d'un livre dans la base de donnée
+        /// </summary>
+        /// <param name="Id"></param>
+        /// <param name="table"></param>
+        /// <returns>true si la supression a pu se faire</returns>
+        public static bool DeleteCommande(Commande commande)
+        {
+            try
+            {
+                string req = "DELETE FROM commandedocument WHERE id = (@id)";
+                Dictionary<string, object> parameters = new Dictionary<string, object>
+                {
+                    { "@id", commande.Id}
+                };
+                BddMySql curs = BddMySql.GetInstance(connectionString);
+                curs.ReqUpdate(req, parameters);
+                curs.Close();
+
+                req = "DELETE FROM commande WHERE id = (@id)";
+                parameters = new Dictionary<string, object>
+                {
+                    { "@id", commande.Id}
+                };
+                curs = BddMySql.GetInstance(connectionString);
+                curs.ReqUpdate(req, parameters);
+                curs.Close();
+
+                return true;
+            }
+            catch
+            {
+                return false;
+            }
+        }
+
     }
 }

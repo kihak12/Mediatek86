@@ -181,6 +181,33 @@ namespace Mediatek86.controleur
             return Dao.UpdateRevue(revue);
         }
 
+        /// <summary>
+        /// getter sur la liste des commandes livres
+        /// </summary>
+        /// <returns>Collection d'objets Livre</returns>
+        public bool ModifyEtatCommande(Commande commande, string etat)
+        {
+            return Dao.ModifyEtatCommande(commande, etat);
+        }
+
+        /// <summary>
+        /// getter sur la liste des commandes livres
+        /// </summary>
+        /// <returns>Collection d'objets Livre</returns>
+        public bool CreerCommande(Commande commande, Livre livre)
+        {
+            return Dao.CreerCommande(commande, livre);
+        }
+
+        /// <summary>
+        /// Supprimer une commande pas encore livrée
+        /// </summary>
+        /// <returns>Collection d'objets Livre</returns>
+        public bool DeleteCommande(Commande commande)
+        {
+            return Dao.DeleteCommande(commande);
+        }
+
 
         public bool SupprimerBdd(string Id, string table)
         {
