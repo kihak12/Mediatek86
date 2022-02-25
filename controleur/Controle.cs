@@ -8,9 +8,6 @@ namespace Mediatek86.controleur
 {
     internal class Controle
     {
-        private readonly List<Livre> lesLivres;
-        private readonly List<Dvd> lesDvd;
-        private readonly List<Revue> lesRevues;
         private readonly List<Categorie> lesRayons;
         private readonly List<Categorie> lesPublics;
         private readonly List<Categorie> lesGenres;
@@ -20,9 +17,6 @@ namespace Mediatek86.controleur
         /// </summary>
         public Controle()
         {
-            lesLivres = Dao.GetAllLivres();
-            lesDvd = Dao.GetAllDvd();
-            lesRevues = Dao.GetAllRevues();
             lesGenres = Dao.GetAllGenres();
             lesRayons = Dao.GetAllRayons();
             lesPublics = Dao.GetAllPublics();
@@ -55,6 +49,15 @@ namespace Mediatek86.controleur
         public Livre selectLivreById(string id)
         {
             return Dao.selectLivreById(id);
+        }
+
+        /// <summary>
+        /// getter sur la liste des commandes livres
+        /// </summary>
+        /// <returns>Collection d'objets Livre</returns>
+        public Dvd selectDvdById(string id)
+        {
+            return Dao.selectDvdById(id);
         }
 
         /// <summary>
@@ -109,6 +112,35 @@ namespace Mediatek86.controleur
         public List<Exemplaire> GetExemplairesRevue(string idDocuement)
         {
             return Dao.GetExemplairesRevue(idDocuement);
+        }
+
+        /// <summary>
+        /// récupère les exemplaires d'une revue
+        /// </summary>
+        /// <returns>Collection d'objets Exemplaire</returns>
+        public List<Abonnement> GetRevueCommande(Revue revue)
+        {
+            return Dao.GetRevueCommande(revue);
+        }
+
+        /// <summary>
+        /// Crée un abonnement d'une revue dans la bdd
+        /// </summary>
+        /// <param name="abonnement">L'objet Exemplaire concerné</param>
+        /// <returns>True si la création a pu se faire</returns>
+        public bool CreerAbonnementRevue(Abonnement abonnement)
+        {
+            return Dao.CreerAbonnementRevue(abonnement);
+        }
+
+        /// <summary>
+        /// Modifier l'abonnement d'une revue dans la bdd
+        /// </summary>
+        /// <param name="abonnement">L'objet Exemplaire concerné</param>
+        /// <returns>True si la création a pu se faire</returns>
+        public bool UpdateAbonnementRevue(Abonnement abonnement)
+        {
+            return Dao.UpdateAbonnementRevue(abonnement);
         }
 
         /// <summary>
@@ -200,12 +232,30 @@ namespace Mediatek86.controleur
         }
 
         /// <summary>
+        /// getter sur la liste des commandes livres
+        /// </summary>
+        /// <returns>Collection d'objets Livre</returns>
+        public bool CreerCommandeDvd(Commande commande, Dvd dvd)
+        {
+            return Dao.CreerCommandeDvd(commande, dvd);
+        }
+
+        /// <summary>
         /// Supprimer une commande pas encore livrée
         /// </summary>
         /// <returns>Collection d'objets Livre</returns>
         public bool DeleteCommande(Commande commande)
         {
             return Dao.DeleteCommande(commande);
+        }
+
+        /// <summary>
+        /// Supprimer un abonnement dans la bdd
+        /// </summary>
+        /// <returns>Collection d'objets Livre</returns>
+        public bool DeleteAbonnement(Abonnement abonnement)
+        {
+            return Dao.DeleteAbonnement(abonnement);
         }
 
 

@@ -269,6 +269,35 @@ namespace Mediatek86.modele
         }
 
         /// <summary>
+        /// Retourne les abonnement d'une revue selon l'Id
+        /// </summary>
+        /// <returns>Liste d'objets Abonnement</returns>
+        public static List<Abonnement> GetRevueCommande(Revue revue)
+        {
+            List<Abonnement> lesCommandes = new List<Abonnement>();
+            string req = "SELECT commande.*, abonnement.dateFinAbonnement, abonnement.idRevue FROM abonnement INNER JOIN commande ON commande.id=abonnement.id WHERE abonnement.idRevue=" + revue.Id;
+
+            BddMySql curs = BddMySql.GetInstance(connectionString);
+            curs.ReqSelect(req, null);
+
+            while (curs.Read())
+            {
+                string Id = curs.Field("id").ToString();
+                DateTime dateAchat = (DateTime)curs.Field("dateCommande");
+                double montant = (double)curs.Field("montant");
+                DateTime dateFin = (DateTime)curs.Field("dateFinAbonnement");
+                string idRevue = (string)curs.Field("idRevue");
+                Abonnement commande = new Abonnement(int.Parse(Id), dateAchat, dateFin, montant, idRevue);
+                lesCommandes.Add(commande);
+
+            }
+
+            curs.Close();
+
+            return lesCommandes;
+        }
+
+        /// <summary>
         /// ecriture d'un exemplaire en base de données
         /// </summary>
         /// <param name="exemplaire"></param>
@@ -678,6 +707,54 @@ namespace Mediatek86.modele
                 curs.ReqUpdate(req, parameters);
                 curs.Close();
 
+                if(etat == "2")
+                {
+                    try
+                    {
+                        int y = 0;
+                        string image = "";
+
+                        Random rnd = new Random();
+                        int num = rnd.Next(10, 10000);
+                        while (y < commande.NbExemplaire)
+                        {
+                            req = "Select image From document Where id=" + commande.IdLivreDvd;
+
+                            curs = BddMySql.GetInstance(connectionString);
+                            curs.ReqSelect(req, null);
+
+                            if (curs.Read())
+                            {
+                                image = (string)curs.Field("image");
+                            }
+
+                            curs.Close();
+
+
+                            req = "insert into exemplaire values (@id, @numero, @DateAchat, @photo, @idEtat)";
+                            parameters = new Dictionary<string, object>
+                            {
+                                { "@id", commande.IdLivreDvd},
+                                { "@numero", num},
+                                { "@DateAchat", commande.DateCommande},
+                                { "@photo", image},
+                                { "@idEtat", "00001"},
+                            };
+                            curs = BddMySql.GetInstance(connectionString);
+                            curs.ReqUpdate(req, parameters);
+                            curs.Close();
+
+                            num++;
+                            y++;
+                        }
+                    }
+                    catch
+                    {
+                        return false;
+                    }
+                }
+                
+
                 return true;
             }
             catch
@@ -714,6 +791,128 @@ namespace Mediatek86.modele
                     { "@idLivreDvd", livre.Id},
                     { "@idSuivi", commande.IdSuivi},
                     { "@type", "livre"},
+                };
+                curs = BddMySql.GetInstance(connectionString);
+                curs.ReqUpdate(req, parameters);
+                curs.Close();
+
+                return true;
+            }
+            catch
+            {
+                return false;
+            }
+        }
+
+
+        /// <summary>
+        /// Création d'une revue dans la base de donnée
+        /// </summary>
+        /// <param name="abonnement"></param>
+        /// <returns>true si l'insertion a pu se faire</returns>
+        public static bool CreerAbonnementRevue(Abonnement abonnement)
+        {
+            try
+            {
+                string req = "insert into commande values (@id, @dateCommande, @montant)";
+                Dictionary<string, object> parameters = new Dictionary<string, object>
+                {
+                    { "@id", abonnement.Id},
+                    { "@dateCommande", abonnement.DateCommande},
+                    { "@montant", abonnement.Montant},
+                };
+                BddMySql curs = BddMySql.GetInstance(connectionString);
+                curs.ReqUpdate(req, parameters);
+                curs.Close();
+
+                req = "insert into abonnement values (@id, @dateFinAbonnement, @idRevue)";
+                parameters = new Dictionary<string, object>
+                {
+                    { "@id", abonnement.Id},
+                    { "@dateFinAbonnement", abonnement.DateExpiration},
+                    { "@idRevue", abonnement.IdRevue},
+                };
+                curs = BddMySql.GetInstance(connectionString);
+                curs.ReqUpdate(req, parameters);
+                curs.Close();
+
+                return true;
+            }
+            catch
+            {
+                return false;
+            }
+        }
+
+
+        /// <summary>
+        /// Modification d'un abonnement de revue dans la base de donnée
+        /// </summary>
+        /// <param name="abonnement"></param>
+        /// <returns>true si la modification a pu se faire</returns>
+        public static bool UpdateAbonnementRevue(Abonnement abonnement)
+        {
+            try
+            {
+                string req = "UPDATE commande SET dateCommande=(@dateCommande), montant=(@montant) WHERE id=(@id)";
+                Dictionary<string, object> parameters = new Dictionary<string, object>
+                {
+                    { "@dateCommande", abonnement.DateCommande},
+                    { "@montant", (double)abonnement.Montant},
+                    { "@id", abonnement.Id},
+                };
+                BddMySql curs = BddMySql.GetInstance(connectionString);
+                curs.ReqUpdate(req, parameters);
+                curs.Close();
+
+                req = "UPDATE abonnement SET dateFinAbonnement=(@dateFinAbonnement) WHERE id=(@id)";
+                parameters = new Dictionary<string, object>
+                {
+                    { "@dateFinAbonnement", abonnement.DateExpiration},
+                    { "@montant", abonnement.Montant},
+                    { "@id", abonnement.Id},
+                };
+                curs = BddMySql.GetInstance(connectionString);
+                curs.ReqUpdate(req, parameters);
+                curs.Close();
+
+                return true;
+            }
+            catch
+            {
+                return false;
+            }
+        }
+
+
+        /// <summary>
+        /// Création d'une revue dans la base de donnée
+        /// </summary>
+        /// <param name="revue"></param>
+        /// <returns>true si l'insertion a pu se faire</returns>
+        public static bool CreerCommandeDvd(Commande commande, Dvd dvd)
+        {
+            try
+            {
+                string req = "insert into commande values (@id, @dateCommande, @montant)";
+                Dictionary<string, object> parameters = new Dictionary<string, object>
+                {
+                    { "@id", commande.Id},
+                    { "@dateCommande", commande.DateCommande},
+                    { "@montant", commande.Montant},
+                };
+                BddMySql curs = BddMySql.GetInstance(connectionString);
+                curs.ReqUpdate(req, parameters);
+                curs.Close();
+
+                req = "insert into commandedocument values (@id, @nbExemplaire, @idLivreDvd, @idSuivi, @type)";
+                parameters = new Dictionary<string, object>
+                {
+                    { "@id", commande.Id},
+                    { "@nbExemplaire", commande.NbExemplaire},
+                    { "@idLivreDvd", dvd.Id},
+                    { "@idSuivi", commande.IdSuivi},
+                    { "@type", "dvd"},
                 };
                 curs = BddMySql.GetInstance(connectionString);
                 curs.ReqUpdate(req, parameters);
@@ -838,11 +1037,40 @@ namespace Mediatek86.modele
             return livre;
         }
 
+        public static Dvd selectDvdById(string Id)
+        {
+            Dvd livre = new Dvd("", "", "", 0, "", "", "", "", "", "", "", "");
+            string req = "Select l.id, l.duree, l.realisateur, d.titre, d.image, l.synopsis, d.idrayon, d.idpublic, d.idgenre, g.libelle as genre, p.libelle as public, r.libelle as rayon from dvd l join document d on l.id=d.id join genre g on g.id=d.idGenre join public p on p.id=d.idPublic join rayon r on r.id=d.idRayon WHERE l.id=" + Id + " order by titre;";
+
+            BddMySql curs = BddMySql.GetInstance(connectionString);
+            curs.ReqSelect(req, null);
+
+            if (curs.Read())
+            {
+                string id = (string)curs.Field("id");
+                int duree = (int)curs.Field("duree");
+                string realisateur = (string)curs.Field("realisateur");
+                string titre = (string)curs.Field("titre");
+                string image = (string)curs.Field("image");
+                string synopsis = (string)curs.Field("synopsis");
+                string idgenre = (string)curs.Field("idgenre");
+                string idrayon = (string)curs.Field("idrayon");
+                string idpublic = (string)curs.Field("idpublic");
+                string genre = (string)curs.Field("genre");
+                string lepublic = (string)curs.Field("public");
+                string rayon = (string)curs.Field("rayon");
+                livre = new Dvd(id, titre, image, duree, realisateur, synopsis, idgenre, genre,
+                    idpublic, lepublic, idrayon, rayon);
+            }
+
+            curs.Close();
+            return livre;
+        }
+
         /// <summary>
         /// Suppression d'un livre dans la base de donnée
         /// </summary>
-        /// <param name="Id"></param>
-        /// <param name="table"></param>
+        /// <param name="commande"></param>
         /// <returns>true si la supression a pu se faire</returns>
         public static bool DeleteCommande(Commande commande)
         {
@@ -861,6 +1089,42 @@ namespace Mediatek86.modele
                 parameters = new Dictionary<string, object>
                 {
                     { "@id", commande.Id}
+                };
+                curs = BddMySql.GetInstance(connectionString);
+                curs.ReqUpdate(req, parameters);
+                curs.Close();
+
+                return true;
+            }
+            catch
+            {
+                return false;
+            }
+        }
+
+        /// <summary>
+        /// Suppression d'un abonnement dans la base de donnée
+        /// </summary>
+        /// <param name="abonnement></param>
+        /// <returns>true si la supression a pu se faire</returns>
+        public static bool DeleteAbonnement(Abonnement abonnement)
+        {
+            try
+            {
+                MessageBox.Show(abonnement.Id.ToString());
+                string req = "DELETE FROM abonnement WHERE id = (@id)";
+                Dictionary<string, object> parameters = new Dictionary<string, object>
+                {
+                    { "@id", abonnement.Id.ToString()}
+                };
+                BddMySql curs = BddMySql.GetInstance(connectionString);
+                curs.ReqUpdate(req, parameters);
+                curs.Close();
+
+                req = "DELETE FROM commande WHERE id = (@id)";
+                parameters = new Dictionary<string, object>
+                {
+                    { "@id", abonnement.Id.ToString()}
                 };
                 curs = BddMySql.GetInstance(connectionString);
                 curs.ReqUpdate(req, parameters);

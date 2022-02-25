@@ -1,4 +1,5 @@
 ﻿C:\Users\Jeremy\Documents\Projet\Visual Studio\Mediatek86gestion\controleur\Controle.cs
+C:\Users\Jeremy\Documents\Projet\Visual Studio\Mediatek86gestion\metier\Commande.cs
 C:\Users\Jeremy\Documents\Projet\Visual Studio\Mediatek86gestion\metier\Dvd.cs
 C:\Users\Jeremy\Documents\Projet\Visual Studio\Mediatek86gestion\metier\Etat.cs
 C:\Users\Jeremy\Documents\Projet\Visual Studio\Mediatek86gestion\metier\LivreDvd.cs
