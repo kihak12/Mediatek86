@@ -107,6 +107,18 @@
     <Compile Include="metier\Livre.cs" />
     <Compile Include="metier\Exemplaire.cs" />
     <Compile Include="metier\Revue.cs" />
+    <Compile Include="vue\FrmAbonnement.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="vue\FrmAbonnement.Designer.cs">
+      <DependentUpon>FrmAbonnement.cs</DependentUpon>
+    </Compile>
+    <Compile Include="vue\FrmAuth.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="vue\FrmAuth.Designer.cs">
+      <DependentUpon>FrmAuth.cs</DependentUpon>
+    </Compile>
     <Compile Include="vue\FrmMediatek.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -125,6 +137,12 @@
       <AutoGen>True</AutoGen>
       <DependentUpon>Resources.resx</DependentUpon>
     </Compile>
+    <EmbeddedResource Include="vue\FrmAbonnement.resx">
+      <DependentUpon>FrmAbonnement.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="vue\FrmAuth.resx">
+      <DependentUpon>FrmAuth.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="vue\FrmMediatek.resx">
       <DependentUpon>FrmMediatek.cs</DependentUpon>
     </EmbeddedResource>

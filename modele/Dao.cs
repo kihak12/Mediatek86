@@ -16,6 +16,28 @@ namespace Mediatek86.modele
         private static readonly string connectionString = "server="+server+";user id="+userid+";password="+password+";database="+database+";SslMode=none";
 
         /// <summary>
+        /// Retourne tous les rayons à partir de la BDD
+        /// </summary>
+        /// <returns>Collection d'objets Rayon</returns>
+        public static List<Categorie> getAllPostes()
+        {
+            List<Categorie> lesPostes = new List<Categorie>();
+            string req = "Select * from service";
+
+            BddMySql curs = BddMySql.GetInstance(connectionString);
+            curs.ReqSelect(req, null);
+
+            while (curs.Read())
+            {
+                Rayon poste = new Rayon((string)curs.Field("droits"), (string)curs.Field("poste"));
+                lesPostes.Add(poste);
+            }
+            curs.Close();
+            return lesPostes;
+        }
+
+
+        /// <summary>
         /// Retourne tous les genres à partir de la BDD
         /// </summary>
         /// <returns>Liste d'objets Genre</returns>
@@ -1067,6 +1089,42 @@ namespace Mediatek86.modele
             return livre;
         }
 
+        public static Revue selectRevueById(string Id)
+        {
+            Revue revue = new Revue("", "", "", "", "", "", "", "", "", false, "", 0);
+            string req = "Select l.id, l.empruntable, l.periodicite, d.titre, d.image, l.delaiMiseADispo, ";
+            req += "d.idrayon, d.idpublic, d.idgenre, g.libelle as genre, p.libelle as public, r.libelle as rayon ";
+            req += "from revue l join document d on l.id=d.id ";
+            req += "join genre g on g.id=d.idGenre ";
+            req += "join public p on p.id=d.idPublic ";
+            req += "join rayon r on r.id=d.idRayon ";
+            req += "Where l.id=" + Id;
+
+            BddMySql curs = BddMySql.GetInstance(connectionString);
+            curs.ReqSelect(req, null);
+
+            if (curs.Read())
+            {
+                string id = (string)curs.Field("id");
+                bool empruntable = (bool)curs.Field("empruntable");
+                string periodicite = (string)curs.Field("periodicite");
+                string titre = (string)curs.Field("titre");
+                string image = (string)curs.Field("image");
+                int delaiMiseADispo = (int)curs.Field("delaimiseadispo");
+                string idgenre = (string)curs.Field("idgenre");
+                string idrayon = (string)curs.Field("idrayon");
+                string idpublic = (string)curs.Field("idpublic");
+                string genre = (string)curs.Field("genre");
+                string lepublic = (string)curs.Field("public");
+                string rayon = (string)curs.Field("rayon");
+                revue = new Revue(id, titre, image, idgenre, genre,
+                    idpublic, lepublic, idrayon, rayon, empruntable, periodicite, delaiMiseADispo);
+            }
+
+            curs.Close();
+            return revue;
+        }
+
         /// <summary>
         /// Suppression d'un livre dans la base de donnée
         /// </summary>
@@ -1100,6 +1158,36 @@ namespace Mediatek86.modele
             {
                 return false;
             }
+        }
+
+
+        /// <summary>
+        /// Retourne tous les genres à partir de la BDD
+        /// </summary>
+        /// <returns>Liste d'objets Genre</returns>
+        public static List<Abonnement> GetAllAbonnementEpiration()
+        {
+            List<Abonnement> lesAbonnement = new List<Abonnement>();
+            string req = "SELECT commande.*, abonnement.dateFinAbonnement, abonnement.idRevue FROM abonnement INNER JOIN commande ON commande.id=abonnement.id WHERE abonnement.dateFinAbonnement<'"
+                + DateTime.Now.AddDays(30).ToString("yyyy-MM-dd")
+                + "' AND abonnement.dateFinAbonnement >'" +
+                DateTime.Now.ToString("yyyy-MM-dd") + "' ORDER BY abonnement.dateFinAbonnement";
+
+            BddMySql curs = BddMySql.GetInstance(connectionString);
+            curs.ReqSelect(req, null);
+
+            while (curs.Read())
+            {
+                string Id = curs.Field("id").ToString();
+                DateTime dateAchat = (DateTime)curs.Field("dateCommande");
+                double montant = (double)curs.Field("montant");
+                DateTime dateFin = (DateTime)curs.Field("dateFinAbonnement");
+                string idRevue = (string)curs.Field("idRevue");
+                Abonnement abonnement = new Abonnement(int.Parse(Id), dateAchat, dateFin, montant, idRevue);
+                lesAbonnement.Add(abonnement);
+            }
+            curs.Close();
+            return lesAbonnement;
         }
 
         /// <summary>
@@ -1136,6 +1224,26 @@ namespace Mediatek86.modele
             {
                 return false;
             }
+        }
+
+
+        public static int checkUserLogin(string pseudo, string pass)
+        {
+            string resultreq = "5";
+            string req = "SELECT service.droits FROM `service` INNER join utilisateur WHERE utilisateur.pseudopost='"+pseudo+"'AND utilisateur.password='"+pass+"' AND utilisateur.pseudopost=service.poste;";
+
+            BddMySql curs = BddMySql.GetInstance(connectionString);
+            curs.ReqSelect(req, null);
+
+            if (curs.Read())
+            {
+                resultreq = curs.Field("droits").ToString();
+            }
+
+            int result = int.Parse(resultreq);
+
+            curs.Close();
+            return result;
         }
 
     }

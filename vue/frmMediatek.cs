@@ -29,7 +29,6 @@ namespace Mediatek86.vue
         private readonly BindingSource bdgPublicsModif = new BindingSource();
         private readonly BindingSource bdgRayonsModif = new BindingSource();
         private readonly BindingSource bdgRevuesListe = new BindingSource();
-        private readonly BindingSource bdgRevuesListeCommande = new BindingSource();
         private readonly BindingSource bdgCommandeRevueListe = new BindingSource();
         private readonly BindingSource bdgExemplairesListe = new BindingSource();
         private List<Livre> lesLivres = new List<Livre>();
@@ -38,14 +37,31 @@ namespace Mediatek86.vue
         private List<Dvd> lesDvd = new List<Dvd>();
         private List<Revue> lesRevues = new List<Revue>();
         private List<Exemplaire> lesExemplaires = new List<Exemplaire>();
+        private int start = 0;
+        private int userDroits = 0;
 
         #endregion
 
 
-        internal FrmMediatek(Controle controle)
+        internal FrmMediatek(Controle controle, int droits)
         {
             InitializeComponent();
             this.controle = controle;
+            setDroits(droits);
+        }
+
+        public void setDroits(int droits)
+        {
+            if(droits == 2)
+            {
+                ((Control)this.tabCommandeLivres).Enabled = false;
+                ((Control)this.tabCommandeDvd).Enabled = false;
+                ((Control)this.tabCommandeRevues).Enabled = false;
+                groupBox1.Enabled = false;
+                groupBox2.Enabled = false;
+                groupBox3.Enabled = false;
+            }
+            userDroits = droits;
         }
 
 
@@ -513,6 +529,17 @@ namespace Mediatek86.vue
             RemplirComboCategorie(controle.GetAllPublics(), bdgPublicsModif, cbxLivresPublicsModif);
             RemplirComboCategorie(controle.GetAllRayons(), bdgRayonsModif, cbxLivresRayonsModif);
             RemplirLivresListeComplete();
+
+            if(userDroits != 2)
+            {
+                FrmAbonnement frmAbonnement = new FrmAbonnement();
+                if (start == 0 && frmAbonnement.affect())
+                {
+                    frmAbonnement.ShowDialog();
+                    start = 1;
+                }
+            }
+
         }
 
         /// <summary>
@@ -2641,8 +2668,6 @@ namespace Mediatek86.vue
             RemplirRevuesListeBdd(lesRevues);
         }
 
-        #endregion
-
         private void dgvRevuesListeBdd_ColumnHeaderMouseClick(object sender, DataGridViewCellMouseEventArgs e)
         {
             string titreColonne = dgvRevuesListeBdd.Columns[e.ColumnIndex].HeaderText;
@@ -2865,5 +2890,10 @@ namespace Mediatek86.vue
             RevueAbonnementRefresh();
 
         }
+
+
+        #endregion
+
+
     }
 }

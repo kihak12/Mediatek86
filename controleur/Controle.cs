@@ -20,8 +20,17 @@ namespace Mediatek86.controleur
             lesGenres = Dao.GetAllGenres();
             lesRayons = Dao.GetAllRayons();
             lesPublics = Dao.GetAllPublics();
-            FrmMediatek frmMediatek = new FrmMediatek(this);
-            frmMediatek.ShowDialog();
+            FrmAuth frmAuth = new FrmAuth(this);
+            frmAuth.ShowDialog();
+        }
+
+        /// <summary>
+        /// getter sur la liste des genres
+        /// </summary>
+        /// <returns>Collection d'objets Genre</returns>
+        public List<Categorie> getAllPostes()
+        {
+            return Dao.getAllPostes();
         }
 
         /// <summary>
@@ -262,6 +271,15 @@ namespace Mediatek86.controleur
         public bool SupprimerBdd(string Id, string table)
         {
             return Dao.SupprimerBdd(Id, table);
+        }
+
+        /// <summary>
+        /// getter sur la liste des commandes livres
+        /// </summary>
+        /// <returns>Collection d'objets Livre</returns>
+        public int checkUserLogin(string pseudo, string password)
+        {
+            return Dao.checkUserLogin(pseudo, password);
         }
 
     }
