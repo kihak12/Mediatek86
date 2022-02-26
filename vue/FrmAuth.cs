@@ -48,11 +48,11 @@ namespace Mediatek86.vue
             {
                 int result = controle.checkUserLogin(pseudo, pass);
 
-                if (result == 5)
+                if (result == 4)
                 {
                     MessageBox.Show("Identifiants incorrects");
                 }
-                else if (result == 4)
+                else if (result == 3)
                 {
                     MessageBox.Show("Vos droits ne sont pas suffisants pour accéder à cette application");
                     this.Close();

@@ -1229,7 +1229,7 @@ namespace Mediatek86.modele
 
         public static int checkUserLogin(string pseudo, string pass)
         {
-            string resultreq = "5";
+            string resultreq = "4";
             string req = "SELECT service.droits FROM `service` INNER join utilisateur WHERE utilisateur.pseudopost='"+pseudo+"'AND utilisateur.password='"+pass+"' AND utilisateur.pseudopost=service.poste;";
 
             BddMySql curs = BddMySql.GetInstance(connectionString);
@@ -1239,9 +1239,7 @@ namespace Mediatek86.modele
             {
                 resultreq = curs.Field("droits").ToString();
             }
-
             int result = int.Parse(resultreq);
-
             curs.Close();
             return result;
         }
