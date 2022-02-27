@@ -5,6 +5,7 @@ using Mediatek86.metier;
 using Mediatek86.controleur;
 using System.Drawing;
 using System.Linq;
+using System.Security.Cryptography;
 
 namespace Mediatek86.vue
 {
@@ -1675,18 +1676,6 @@ namespace Mediatek86.vue
             return num;
         }
 
-        private bool ParutionDansAbonnement(DateTime dateCommande, DateTime dateExpiration, DateTime Now)
-        {
-            if (dateCommande.Date < Now.Date && Now.Date > dateExpiration.Date)
-            {
-                return true;
-            }
-            else
-            {
-                return false;
-            }
-        }
-
 
         #endregion
 
@@ -2869,7 +2858,7 @@ namespace Mediatek86.vue
         private void button1_Click(object sender, EventArgs e)
         {
             Abonnement abonnement = (Abonnement)bdgCommandeRevueListe.List[bdgCommandeRevueListe.Position];
-            if (ParutionDansAbonnement(abonnement.DateCommande, abonnement.DateExpiration, DateTime.Now))
+            if (!controle.ParutionDansAbonnement(abonnement.DateCommande, abonnement.DateExpiration, DateTime.Now))
             {
                 if ((MessageBox.Show("Êtes vous sur de vouloir supprimé cette commande ?", "Suppression d'une commande", MessageBoxButtons.YesNo, MessageBoxIcon.Question, MessageBoxDefaultButton.Button1) == System.Windows.Forms.DialogResult.Yes))
                 {

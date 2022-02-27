@@ -2,7 +2,7 @@
 using Mediatek86.modele;
 using Mediatek86.metier;
 using Mediatek86.vue;
-
+using System;
 
 namespace Mediatek86.controleur
 {
@@ -280,6 +280,15 @@ namespace Mediatek86.controleur
         public int checkUserLogin(string pseudo, string password)
         {
             return Dao.checkUserLogin(pseudo, password);
+        }
+
+        /// <summary>
+        /// test la validité de l'abonnement
+        /// </summary>
+        /// <returns>true ou false</returns>
+        public bool ParutionDansAbonnement(DateTime dateCommande, DateTime dateExpiration, DateTime Now)
+        {
+            return Dao.ParutionDansAbonnement(dateCommande, dateExpiration, Now);
         }
 
     }

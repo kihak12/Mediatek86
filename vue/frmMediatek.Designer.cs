@@ -245,6 +245,8 @@ namespace Mediatek86.vue
             this.btnReceptionRechercher = new System.Windows.Forms.Button();
             this.tabCommandeLivres = new System.Windows.Forms.TabPage();
             this.groupBox6 = new System.Windows.Forms.GroupBox();
+            this.txbLivresNumeroCommande = new System.Windows.Forms.TextBox();
+            this.label156 = new System.Windows.Forms.Label();
             this.groupBox9 = new System.Windows.Forms.GroupBox();
             this.btnLivresCommandeSetDelete = new System.Windows.Forms.Button();
             this.label107 = new System.Windows.Forms.Label();
@@ -311,6 +313,8 @@ namespace Mediatek86.vue
             this.txbLivresAuteurCommandeCreate = new System.Windows.Forms.TextBox();
             this.tabCommandeDvd = new System.Windows.Forms.TabPage();
             this.groupBox10 = new System.Windows.Forms.GroupBox();
+            this.txbDvdsNumeroCommande = new System.Windows.Forms.TextBox();
+            this.label157 = new System.Windows.Forms.Label();
             this.txbDvdsSynopsisCommande = new System.Windows.Forms.TextBox();
             this.groupBox11 = new System.Windows.Forms.GroupBox();
             this.btnDvdsCommandeSetDelete = new System.Windows.Forms.Button();
@@ -429,10 +433,6 @@ namespace Mediatek86.vue
             this.label134 = new System.Windows.Forms.Label();
             this.txbRevuesNumRechercheCommande = new System.Windows.Forms.TextBox();
             this.dgvRevuesListeBdd = new System.Windows.Forms.DataGridView();
-            this.txbLivresNumeroCommande = new System.Windows.Forms.TextBox();
-            this.label156 = new System.Windows.Forms.Label();
-            this.txbDvdsNumeroCommande = new System.Windows.Forms.TextBox();
-            this.label157 = new System.Windows.Forms.Label();
             this.tabOngletsApplication.SuspendLayout();
             this.tabLivres.SuspendLayout();
             this.groupBox1.SuspendLayout();
@@ -2773,6 +2773,24 @@ namespace Mediatek86.vue
             this.groupBox6.TabStop = false;
             this.groupBox6.Text = "Informations et gestions de la commande";
             // 
+            // txbLivresNumeroCommande
+            // 
+            this.txbLivresNumeroCommande.Location = new System.Drawing.Point(393, 142);
+            this.txbLivresNumeroCommande.Name = "txbLivresNumeroCommande";
+            this.txbLivresNumeroCommande.ReadOnly = true;
+            this.txbLivresNumeroCommande.Size = new System.Drawing.Size(106, 20);
+            this.txbLivresNumeroCommande.TabIndex = 66;
+            // 
+            // label156
+            // 
+            this.label156.AutoSize = true;
+            this.label156.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label156.Location = new System.Drawing.Point(383, 123);
+            this.label156.Name = "label156";
+            this.label156.Size = new System.Drawing.Size(140, 13);
+            this.label156.TabIndex = 65;
+            this.label156.Text = "Numéro de commande :";
+            // 
             // groupBox9
             // 
             this.groupBox9.Controls.Add(this.btnLivresCommandeSetDelete);
@@ -3475,6 +3493,24 @@ namespace Mediatek86.vue
             this.groupBox10.TabIndex = 26;
             this.groupBox10.TabStop = false;
             this.groupBox10.Text = "Informations et gestions de la commande";
+            // 
+            // txbDvdsNumeroCommande
+            // 
+            this.txbDvdsNumeroCommande.Location = new System.Drawing.Point(393, 200);
+            this.txbDvdsNumeroCommande.Name = "txbDvdsNumeroCommande";
+            this.txbDvdsNumeroCommande.ReadOnly = true;
+            this.txbDvdsNumeroCommande.Size = new System.Drawing.Size(106, 20);
+            this.txbDvdsNumeroCommande.TabIndex = 68;
+            // 
+            // label157
+            // 
+            this.label157.AutoSize = true;
+            this.label157.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label157.Location = new System.Drawing.Point(369, 184);
+            this.label157.Name = "label157";
+            this.label157.Size = new System.Drawing.Size(140, 13);
+            this.label157.TabIndex = 67;
+            this.label157.Text = "Numéro de commande :";
             // 
             // txbDvdsSynopsisCommande
             // 
@@ -4708,42 +4744,6 @@ namespace Mediatek86.vue
             this.dgvRevuesListeBdd.ColumnHeaderMouseClick += new System.Windows.Forms.DataGridViewCellMouseEventHandler(this.dgvRevuesListeBdd_ColumnHeaderMouseClick);
             this.dgvRevuesListeBdd.SelectionChanged += new System.EventHandler(this.dgvRevuesListeBdd_SelectionChanged);
             // 
-            // txbLivresNumeroCommande
-            // 
-            this.txbLivresNumeroCommande.Location = new System.Drawing.Point(393, 142);
-            this.txbLivresNumeroCommande.Name = "txbLivresNumeroCommande";
-            this.txbLivresNumeroCommande.ReadOnly = true;
-            this.txbLivresNumeroCommande.Size = new System.Drawing.Size(106, 20);
-            this.txbLivresNumeroCommande.TabIndex = 66;
-            // 
-            // label156
-            // 
-            this.label156.AutoSize = true;
-            this.label156.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label156.Location = new System.Drawing.Point(383, 123);
-            this.label156.Name = "label156";
-            this.label156.Size = new System.Drawing.Size(140, 13);
-            this.label156.TabIndex = 65;
-            this.label156.Text = "Numéro de commande :";
-            // 
-            // txbDvdsNumeroCommande
-            // 
-            this.txbDvdsNumeroCommande.Location = new System.Drawing.Point(393, 200);
-            this.txbDvdsNumeroCommande.Name = "txbDvdsNumeroCommande";
-            this.txbDvdsNumeroCommande.ReadOnly = true;
-            this.txbDvdsNumeroCommande.Size = new System.Drawing.Size(106, 20);
-            this.txbDvdsNumeroCommande.TabIndex = 68;
-            // 
-            // label157
-            // 
-            this.label157.AutoSize = true;
-            this.label157.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label157.Location = new System.Drawing.Point(369, 184);
-            this.label157.Name = "label157";
-            this.label157.Size = new System.Drawing.Size(140, 13);
-            this.label157.TabIndex = 67;
-            this.label157.Text = "Numéro de commande :";
-            // 
             // FrmMediatek
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -4751,6 +4751,7 @@ namespace Mediatek86.vue
             this.ClientSize = new System.Drawing.Size(1212, 655);
             this.Controls.Add(this.tabOngletsApplication);
             this.Name = "FrmMediatek";
+            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Gestion Médiathèque";
             this.tabOngletsApplication.ResumeLayout(false);
             this.tabLivres.ResumeLayout(false);

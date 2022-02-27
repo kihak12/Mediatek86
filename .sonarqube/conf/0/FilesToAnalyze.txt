@@ -1,4 +1,5 @@
 ﻿C:\Users\Jeremy\Documents\Projet\Visual Studio\Mediatek86gestion\controleur\Controle.cs
+C:\Users\Jeremy\Documents\Projet\Visual Studio\Mediatek86gestion\metier\Abonnement.cs
 C:\Users\Jeremy\Documents\Projet\Visual Studio\Mediatek86gestion\metier\Commande.cs
 C:\Users\Jeremy\Documents\Projet\Visual Studio\Mediatek86gestion\metier\Dvd.cs
 C:\Users\Jeremy\Documents\Projet\Visual Studio\Mediatek86gestion\metier\Etat.cs
@@ -12,12 +13,18 @@ C:\Users\Jeremy\Documents\Projet\Visual Studio\Mediatek86gestion\metier\Document
 C:\Users\Jeremy\Documents\Projet\Visual Studio\Mediatek86gestion\metier\Livre.cs
 C:\Users\Jeremy\Documents\Projet\Visual Studio\Mediatek86gestion\metier\Exemplaire.cs
 C:\Users\Jeremy\Documents\Projet\Visual Studio\Mediatek86gestion\metier\Revue.cs
+C:\Users\Jeremy\Documents\Projet\Visual Studio\Mediatek86gestion\vue\FrmAbonnement.cs
+C:\Users\Jeremy\Documents\Projet\Visual Studio\Mediatek86gestion\vue\FrmAbonnement.Designer.cs
+C:\Users\Jeremy\Documents\Projet\Visual Studio\Mediatek86gestion\vue\FrmAuth.cs
+C:\Users\Jeremy\Documents\Projet\Visual Studio\Mediatek86gestion\vue\FrmAuth.Designer.cs
 C:\Users\Jeremy\Documents\Projet\Visual Studio\Mediatek86gestion\vue\FrmMediatek.cs
 C:\Users\Jeremy\Documents\Projet\Visual Studio\Mediatek86gestion\vue\FrmMediatek.Designer.cs
 C:\Users\Jeremy\Documents\Projet\Visual Studio\Mediatek86gestion\metier\Genre.cs
 C:\Users\Jeremy\Documents\Projet\Visual Studio\Mediatek86gestion\Program.cs
 C:\Users\Jeremy\Documents\Projet\Visual Studio\Mediatek86gestion\Properties\AssemblyInfo.cs
 C:\Users\Jeremy\Documents\Projet\Visual Studio\Mediatek86gestion\Properties\Resources.resx
+C:\Users\Jeremy\Documents\Projet\Visual Studio\Mediatek86gestion\vue\FrmAbonnement.resx
+C:\Users\Jeremy\Documents\Projet\Visual Studio\Mediatek86gestion\vue\FrmAuth.resx
 C:\Users\Jeremy\Documents\Projet\Visual Studio\Mediatek86gestion\vue\FrmMediatek.resx
 C:\Users\Jeremy\Documents\Projet\Visual Studio\Mediatek86gestion\.sonarlint\mediatek86csharp.ruleset
 C:\Users\Jeremy\Documents\Projet\Visual Studio\Mediatek86gestion\packages.config

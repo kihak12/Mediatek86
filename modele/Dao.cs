@@ -880,7 +880,7 @@ namespace Mediatek86.modele
                 Dictionary<string, object> parameters = new Dictionary<string, object>
                 {
                     { "@dateCommande", abonnement.DateCommande},
-                    { "@montant", (double)abonnement.Montant},
+                    { "@montant", abonnement.Montant},
                     { "@id", abonnement.Id},
                 };
                 BddMySql curs = BddMySql.GetInstance(connectionString);
@@ -1242,6 +1242,18 @@ namespace Mediatek86.modele
             int result = int.Parse(resultreq);
             curs.Close();
             return result;
+        }
+
+        public static bool ParutionDansAbonnement(DateTime dateCommande, DateTime dateExpiration, DateTime Now)
+        {
+            if (dateCommande.Date < Now.Date && Now.Date < dateExpiration.Date)
+            {
+                return true;
+            }
+            else
+            {
+                return false;
+            }
         }
 
     }
