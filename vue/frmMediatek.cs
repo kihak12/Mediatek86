@@ -51,6 +51,10 @@ namespace Mediatek86.vue
             setDroits(droits);
         }
 
+        /// <summary>
+        /// Modifie l'accessibilité au panel selon les droits
+        /// </summary>
+        /// <param name="droits"></param>
         public void setDroits(int droits)
         {
             if(droits == 2)
@@ -1630,6 +1634,11 @@ namespace Mediatek86.vue
 
 
         #region utils
+        /// <summary>
+        /// Recherche le label du Rayon par son Id
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <returns></returns>
         private string getRayonId(string sender)
         {
             List<Categorie> rayons = controle.GetAllRayons();
@@ -1643,6 +1652,11 @@ namespace Mediatek86.vue
             return null;
         }
 
+        /// <summary>
+        /// Recherche le label du Public par son Id
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <returns></returns>
         private string getPublicId(string sender)
         {
             List<Categorie> rayons = controle.GetAllPublics();
@@ -1656,6 +1670,11 @@ namespace Mediatek86.vue
             return null;
         }
 
+        /// <summary>
+        /// Recherche le label du Genre par son Id
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <returns></returns>
         private string getGenresId(string sender)
         {
             List<Categorie> rayons = controle.GetAllGenres();
@@ -1669,6 +1688,10 @@ namespace Mediatek86.vue
             return null;
         }
 
+        /// <summary>
+        /// Génère l'Id d'une commande aléatoirement
+        /// </summary>
+        /// <returns></returns>
         private int getRandomOrderId()
         {
             Random rnd = new Random();
@@ -2705,6 +2728,10 @@ namespace Mediatek86.vue
             }
         }
 
+        /// <summary>
+        /// Affiche les commande de la revue reçut en paramètre
+        /// </summary>
+        /// <param name="revue"></param>
         private void AfficheRevuesCommande(Revue revue)
         {
             List<Abonnement> abonnements = controle.GetRevueCommande(revue);

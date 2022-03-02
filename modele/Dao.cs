@@ -948,6 +948,11 @@ namespace Mediatek86.modele
             }
         }
 
+        /// <summary>
+        /// Check que le livre ou le dvd ne poccède aucune commande
+        /// </summary>
+        /// <param name="Id"></param>
+        /// <returns>Booleen</returns>
         public static bool checkCommand(string Id)
         {
             int y = 0; 
@@ -975,6 +980,11 @@ namespace Mediatek86.modele
             }
         }
 
+        /// <summary>
+        /// Check que la revue ne poccède pas d'abonnement
+        /// </summary>
+        /// <param name="Id"></param>
+        /// <returns>Booleen</returns>
         public static bool checkAbonnement(string Id)
         {
             int y = 0;
@@ -1002,6 +1012,11 @@ namespace Mediatek86.modele
             }
         }
 
+        /// <summary>
+        /// Recherche si l'exemplaire existe
+        /// </summary>
+        /// <param name="Id"></param>
+        /// <returns>Booleen</returns>
         public static bool checkExemplaire(string Id)
         {
             int y = 0;
@@ -1029,6 +1044,11 @@ namespace Mediatek86.modele
             }
         }
 
+        /// <summary>
+        /// Selectionne un livre par son Id
+        /// </summary>
+        /// <param name="Id"></param>
+        /// <returns></returns>
         public static Livre selectLivreById(string Id)
         {
             Livre livre = new Livre("", "", "", "", "", "", "", "", "", "","", "");
@@ -1059,6 +1079,12 @@ namespace Mediatek86.modele
             return livre;
         }
 
+
+        /// <summary>
+        /// Sélectionne un Dvd par son Id
+        /// </summary>
+        /// <param name="Id"></param>
+        /// <returns></returns>
         public static Dvd selectDvdById(string Id)
         {
             Dvd livre = new Dvd("", "", "", 0, "", "", "", "", "", "", "", "");
@@ -1089,6 +1115,11 @@ namespace Mediatek86.modele
             return livre;
         }
 
+        /// <summary>
+        /// Sélectionne une revue par son Id
+        /// </summary>
+        /// <param name="Id"></param>
+        /// <returns></returns>
         public static Revue selectRevueById(string Id)
         {
             Revue revue = new Revue("", "", "", "", "", "", "", "", "", false, "", 0);
@@ -1162,7 +1193,7 @@ namespace Mediatek86.modele
 
 
         /// <summary>
-        /// Retourne tous les genres à partir de la BDD
+        /// Retourne tous les abonnement qui se termine dans moins de 30 jours
         /// </summary>
         /// <returns>Liste d'objets Genre</returns>
         public static List<Abonnement> GetAllAbonnementEpiration()
@@ -1226,7 +1257,12 @@ namespace Mediatek86.modele
             }
         }
 
-
+        /// <summary>
+        /// Vérifie si les identifiant sont valide 
+        /// </summary>
+        /// <param name="pseudo"></param>
+        /// <param name="pass"></param>
+        /// <returns></returns>
         public static int checkUserLogin(string pseudo, string pass)
         {
             string resultreq = "4";
@@ -1244,6 +1280,13 @@ namespace Mediatek86.modele
             return result;
         }
 
+        /// <summary>
+        /// Check si une date se situe entre deux autres
+        /// </summary>
+        /// <param name="dateCommande"></param>
+        /// <param name="dateExpiration"></param>
+        /// <param name="Now"></param>
+        /// <returns></returns>
         public static bool ParutionDansAbonnement(DateTime dateCommande, DateTime dateExpiration, DateTime Now)
         {
             if (dateCommande.Date < Now.Date && Now.Date < dateExpiration.Date)

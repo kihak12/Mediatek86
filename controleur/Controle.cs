@@ -25,7 +25,7 @@ namespace Mediatek86.controleur
         }
 
         /// <summary>
-        /// getter sur la liste des genres
+        /// getter sur la liste des postes
         /// </summary>
         /// <returns>Collection d'objets Genre</returns>
         public List<Categorie> getAllPostes()
@@ -267,7 +267,12 @@ namespace Mediatek86.controleur
             return Dao.DeleteAbonnement(abonnement);
         }
 
-
+        /// <summary>
+        /// Suppimer un article dans la Bdd
+        /// </summary>
+        /// <param name="Id"></param>
+        /// <param name="table"></param>
+        /// <returns></returns>
         public bool SupprimerBdd(string Id, string table)
         {
             return Dao.SupprimerBdd(Id, table);

@@ -24,6 +24,9 @@ namespace Mediatek86.vue
             RemplirComboBox();
         }
 
+        /// <summary>
+        /// Remplie la combos box avec les Postes disponibles
+        /// </summary>
         private void RemplirComboBox(){
             bdgDroits.DataSource = controle.getAllPostes();
             cbxPoste.DataSource = bdgDroits;
@@ -39,6 +42,11 @@ namespace Mediatek86.vue
             frmMediatek.ShowDialog();
         }
 
+        /// <summary>
+        /// Teste de la connexion
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void BtnLogin_Click(object sender, EventArgs e)
         {
             string pseudo = cbxPoste.Text;

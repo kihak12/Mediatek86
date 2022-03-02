@@ -15,6 +15,10 @@ namespace Mediatek86.vue
             RemplirDgv();
         }
 
+        /// <summary>
+        /// Search for subscriptions ending in less than 30 days
+        /// </summary>
+        /// <returns></returns>
         public bool affect()
         {
             List<Abonnement> abonnements = Dao.GetAllAbonnementEpiration();
@@ -28,6 +32,9 @@ namespace Mediatek86.vue
             }
         }
 
+        /// <summary>
+        /// Remplie le DataGridView avec les abonnement arrivant a expiration
+        /// </summary>
         private void RemplirDgv()
         {
             List<Abonnement> abonnements = Dao.GetAllAbonnementEpiration();
@@ -50,6 +57,11 @@ namespace Mediatek86.vue
             dgvAbonnementExpirationListe.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.AllCells;
         }
 
+        /// <summary>
+        /// Ferme la fenêtre
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void button1_Click(object sender, System.EventArgs e)
         {
             this.Close();
