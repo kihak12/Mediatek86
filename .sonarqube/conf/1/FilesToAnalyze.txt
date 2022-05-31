@@ -1,9 +1,9 @@
-﻿C:\Users\Jeremy\Documents\Projet\Visual Studio\UnitTestMediatek86\UnitTest1.cs
-C:\Users\Jeremy\Documents\Projet\Visual Studio\UnitTestMediatek86\Properties\AssemblyInfo.cs
-C:\Users\Jeremy\Documents\Projet\Visual Studio\Mediatek86gestion\packages\MSTest.TestAdapter.2.1.2\build\_common\fr\Microsoft.VisualStudio.TestPlatform.MSTest.TestAdapter.resources.dll
-C:\Users\Jeremy\Documents\Projet\Visual Studio\Mediatek86gestion\packages\MSTest.TestAdapter.2.1.2\build\_common\fr\Microsoft.VisualStudio.TestPlatform.MSTestAdapter.PlatformServices.resources.dll
-C:\Users\Jeremy\Documents\Projet\Visual Studio\Mediatek86gestion\packages\MSTest.TestAdapter.2.1.2\build\_common\fr\Microsoft.VisualStudio.TestPlatform.TestFramework.resources.dll
-C:\Users\Jeremy\Documents\Projet\Visual Studio\Mediatek86gestion\packages\MSTest.TestAdapter.2.1.2\build\_common\Microsoft.VisualStudio.TestPlatform.MSTest.TestAdapter.dll
-C:\Users\Jeremy\Documents\Projet\Visual Studio\Mediatek86gestion\packages\MSTest.TestAdapter.2.1.2\build\_common\Microsoft.VisualStudio.TestPlatform.MSTestAdapter.PlatformServices.Interface.dll
-C:\Users\Jeremy\Documents\Projet\Visual Studio\Mediatek86gestion\packages\MSTest.TestAdapter.2.1.2\build\_common\Microsoft.VisualStudio.TestPlatform.MSTestAdapter.PlatformServices.dll
-C:\Users\Jeremy\Documents\Projet\Visual Studio\UnitTestMediatek86\packages.config
+﻿C:\Users\Jeremy\Desktop\E5\C#\UnitTestMediatek86\UnitTest1.cs
+C:\Users\Jeremy\Desktop\E5\C#\UnitTestMediatek86\Properties\AssemblyInfo.cs
+C:\Users\Jeremy\Desktop\E5\C#\Mediatek86gestion\packages\MSTest.TestAdapter.2.1.2\build\_common\fr\Microsoft.VisualStudio.TestPlatform.MSTest.TestAdapter.resources.dll
+C:\Users\Jeremy\Desktop\E5\C#\Mediatek86gestion\packages\MSTest.TestAdapter.2.1.2\build\_common\fr\Microsoft.VisualStudio.TestPlatform.MSTestAdapter.PlatformServices.resources.dll
+C:\Users\Jeremy\Desktop\E5\C#\Mediatek86gestion\packages\MSTest.TestAdapter.2.1.2\build\_common\fr\Microsoft.VisualStudio.TestPlatform.TestFramework.resources.dll
+C:\Users\Jeremy\Desktop\E5\C#\Mediatek86gestion\packages\MSTest.TestAdapter.2.1.2\build\_common\Microsoft.VisualStudio.TestPlatform.MSTest.TestAdapter.dll
+C:\Users\Jeremy\Desktop\E5\C#\Mediatek86gestion\packages\MSTest.TestAdapter.2.1.2\build\_common\Microsoft.VisualStudio.TestPlatform.MSTestAdapter.PlatformServices.Interface.dll
+C:\Users\Jeremy\Desktop\E5\C#\Mediatek86gestion\packages\MSTest.TestAdapter.2.1.2\build\_common\Microsoft.VisualStudio.TestPlatform.MSTestAdapter.PlatformServices.dll
+C:\Users\Jeremy\Desktop\E5\C#\UnitTestMediatek86\packages.config

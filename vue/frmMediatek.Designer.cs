@@ -29,6 +29,7 @@ namespace Mediatek86.vue
         /// </summary>
         private void InitializeComponent()
         {
+            this.txbLivresRelanceCommande = new System.Windows.Forms.TextBox();
             this.tabOngletsApplication = new System.Windows.Forms.TabControl();
             this.tabLivres = new System.Windows.Forms.TabPage();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
@@ -254,7 +255,6 @@ namespace Mediatek86.vue
             this.label105 = new System.Windows.Forms.Label();
             this.txbLivresEtatCommande = new System.Windows.Forms.TextBox();
             this.groupBox8 = new System.Windows.Forms.GroupBox();
-            this.txbLivresRelanceCommande = new System.Windows.Forms.TextBox();
             this.label104 = new System.Windows.Forms.Label();
             this.btnLivresCommandeSetRelancee = new System.Windows.Forms.Button();
             this.groupBox7 = new System.Windows.Forms.GroupBox();
@@ -496,6 +496,14 @@ namespace Mediatek86.vue
             this.groupBox16.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dgvRevuesListeBdd)).BeginInit();
             this.SuspendLayout();
+            // 
+            // txbLivresRelanceCommande
+            // 
+            this.txbLivresRelanceCommande.Location = new System.Drawing.Point(161, 26);
+            this.txbLivresRelanceCommande.Name = "txbLivresRelanceCommande";
+            this.txbLivresRelanceCommande.ReadOnly = true;
+            this.txbLivresRelanceCommande.Size = new System.Drawing.Size(138, 20);
+            this.txbLivresRelanceCommande.TabIndex = 61;
             // 
             // tabOngletsApplication
             // 
@@ -2861,14 +2869,6 @@ namespace Mediatek86.vue
             this.groupBox8.TabStop = false;
             this.groupBox8.Text = "Relancée l\'expédition de la commande :";
             // 
-            // txbLivresRelanceCommande
-            // 
-            this.txbLivresRelanceCommande.Location = new System.Drawing.Point(161, 26);
-            this.txbLivresRelanceCommande.Name = "txbLivresRelanceCommande";
-            this.txbLivresRelanceCommande.ReadOnly = true;
-            this.txbLivresRelanceCommande.Size = new System.Drawing.Size(138, 20);
-            this.txbLivresRelanceCommande.TabIndex = 61;
-            // 
             // label104
             // 
             this.label104.AutoSize = true;
@@ -5015,7 +5015,6 @@ namespace Mediatek86.vue
         private System.Windows.Forms.TextBox txbLivresTitreModif;
         private System.Windows.Forms.TextBox txbLivresAuteurModif;
         private System.Windows.Forms.GroupBox groupBox2;
-        private System.Windows.Forms.Button BtnDvdSuppr;
         private System.Windows.Forms.Button BtnDvdModif;
         private System.Windows.Forms.TextBox txbDvdDureeModif;
         private System.Windows.Forms.Button BtnDvdAjout;
@@ -5089,7 +5088,6 @@ namespace Mediatek86.vue
         private System.Windows.Forms.Label label105;
         private System.Windows.Forms.TextBox txbLivresEtatCommande;
         private System.Windows.Forms.GroupBox groupBox8;
-        private System.Windows.Forms.TextBox txbLivresRelanceCommande;
         private System.Windows.Forms.Label label104;
         private System.Windows.Forms.Button btnLivresCommandeSetRelancee;
         private System.Windows.Forms.GroupBox groupBox7;
@@ -5102,7 +5100,6 @@ namespace Mediatek86.vue
         private System.Windows.Forms.TextBox txbLivresPublicCommande;
         private System.Windows.Forms.TextBox txbLivresGenreCommande;
         private System.Windows.Forms.TextBox txbLivresCollectionCommande;
-        private System.Windows.Forms.TextBox txbLivresAuteurCommande;
         private System.Windows.Forms.TextBox txbLivresTitreCommande;
         private System.Windows.Forms.TextBox txbLivresNumeroDocCommande;
         private System.Windows.Forms.Label label94;
@@ -5211,7 +5208,6 @@ namespace Mediatek86.vue
         private System.Windows.Forms.TextBox txbRevuesPublicCommande;
         private System.Windows.Forms.TextBox txbRevuesGenreCommande;
         private System.Windows.Forms.TextBox txbRevuesDelaiCommande;
-        private System.Windows.Forms.TextBox txbRevuesPeriodiciteCommande;
         private System.Windows.Forms.TextBox txbRevuesTitreCommande;
         private System.Windows.Forms.TextBox txbRevuesNumeroCommande;
         private System.Windows.Forms.Label label136;
@@ -5252,6 +5248,10 @@ namespace Mediatek86.vue
         private System.Windows.Forms.Label label156;
         private System.Windows.Forms.TextBox txbDvdsNumeroCommande;
         private System.Windows.Forms.Label label157;
+        private System.Windows.Forms.Button BtnDvdSuppr;
+        private System.Windows.Forms.TextBox txbLivresAuteurCommande;
+        private System.Windows.Forms.TextBox txbLivresRelanceCommande;
+        private System.Windows.Forms.TextBox txbRevuesPeriodiciteCommande;
     }
 }
 

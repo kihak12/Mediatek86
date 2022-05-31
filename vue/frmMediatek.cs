@@ -1314,7 +1314,8 @@ namespace Mediatek86.vue
 
         private void BtnDvdSuppr_Click(object sender, EventArgs e)
         {
-            if ((MessageBox.Show("Êtes vous sur de vouloir supprimé ce Dvd ?", "Suppression d'un Dvd", MessageBoxButtons.YesNo, MessageBoxIcon.Question, MessageBoxDefaultButton.Button1) == System.Windows.Forms.DialogResult.Yes))
+            if ((MessageBox.Show("Êtes vous sur de vouloir supprimé ce Dvd ?", "Suppression d'un Dvd",
+                MessageBoxButtons.YesNo, MessageBoxIcon.Question, MessageBoxDefaultButton.Button1) == System.Windows.Forms.DialogResult.Yes))
             {
 
                 if (controle.SupprimerBdd(txbDvdNumero.Text, "dvd"))
@@ -1805,7 +1806,6 @@ namespace Mediatek86.vue
             txbLivresPublicCommande.Text = livre.Public;
             txbLivresRayonCommande.Text = livre.Rayon;
             txbLivresIsbnCommande.Text = livre.Isbn;
-
             txbLivresDateCommande.Text = commande.DateCommande.ToString("D");
             txbLivresRelanceCommande.Text = commande.DateCommande.AddDays(3).ToString("D");
             txbLivresNombreCommande.Text = commande.NbExemplaire.ToString();
@@ -1836,17 +1836,9 @@ namespace Mediatek86.vue
                     btnLivresCommandeSetDelete.Enabled = true;
                     break;
             }
-
             string image = livre.Image;
-            try
-            {
-                pcbLivresImageCommande.Image = Image.FromFile(image);
-            }
-            catch
-            {
-                pcbLivresImageCommande.Image = null;
-            }
-
+            try{ pcbLivresImageCommande.Image = Image.FromFile(image);}
+            catch{pcbLivresImageCommande.Image = null;}
         }
 
 
@@ -2071,9 +2063,6 @@ namespace Mediatek86.vue
 
         private void btnLivresCommandeCommander_Click(object sender, EventArgs e)
         {
-            MessageBox.Show(nudLivresPrixCommandeCreate.Value.ToString());
-            MessageBox.Show(nudLivresNombreCommandeCreate.Value.ToString());
-
             if (nudLivresPrixCommandeCreate.Value == 0 && nudLivresNombreCommandeCreate.Value == 0)
             {
                 MessageBox.Show("Veuillez saisir le nombre d'exemplaire a commander ainsi que le prix.");
@@ -2133,7 +2122,9 @@ namespace Mediatek86.vue
             {
                 if (commande.Etat != "livrée")
                 {
-                    if ((MessageBox.Show("Êtes vous sur de vouloir supprimé cette commande ?", "Suppression d'une commande", MessageBoxButtons.YesNo, MessageBoxIcon.Question, MessageBoxDefaultButton.Button1) == System.Windows.Forms.DialogResult.Yes))
+                    if ((MessageBox.Show("Êtes vous sur de vouloir supprimé cette commande ?", "Suppression d'une commande"
+                        , MessageBoxButtons.YesNo, MessageBoxIcon.Question, MessageBoxDefaultButton.Button1) 
+                        == System.Windows.Forms.DialogResult.Yes))
                     {
                         List<Commande> commandes = new List<Commande>();
                         commandes.Add(commande);
@@ -2887,7 +2878,8 @@ namespace Mediatek86.vue
             Abonnement abonnement = (Abonnement)bdgCommandeRevueListe.List[bdgCommandeRevueListe.Position];
             if (!controle.ParutionDansAbonnement(abonnement.DateCommande, abonnement.DateExpiration, DateTime.Now))
             {
-                if ((MessageBox.Show("Êtes vous sur de vouloir supprimé cette commande ?", "Suppression d'une commande", MessageBoxButtons.YesNo, MessageBoxIcon.Question, MessageBoxDefaultButton.Button1) == System.Windows.Forms.DialogResult.Yes))
+                if ((MessageBox.Show("Êtes vous sur de vouloir supprimé cette commande ?", "Suppression d'une commande",
+                    MessageBoxButtons.YesNo, MessageBoxIcon.Question, MessageBoxDefaultButton.Button1) == System.Windows.Forms.DialogResult.Yes))
                 {
                     if (controle.DeleteAbonnement(abonnement))
                     {

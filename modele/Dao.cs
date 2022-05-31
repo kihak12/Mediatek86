@@ -9,10 +9,10 @@ namespace Mediatek86.modele
     public static class Dao
     {
 
-        private static readonly string server = "localhost";
-        private static readonly string userid = "root";
-        private static readonly string password = "";
-        private static readonly string database = "mediatek86";
+        private static readonly string server = "109.234.164.204";
+        private static readonly string userid = "caxr6544_kihak";
+        private static readonly string password = "imR)jrFtCQf-";
+        private static readonly string database = "caxr6544_mediatek86";
         private static readonly string connectionString = "server="+server+";user id="+userid+";password="+password+";database="+database+";SslMode=none";
 
         /// <summary>
@@ -148,7 +148,9 @@ namespace Mediatek86.modele
         public static List<Commande> GetAllCommandeLivresDvd(string type)
         {
             List<Commande> lesCommandesLivres = new List<Commande>();
-            string req = "SELECT commandedocument.*, commande.dateCommande, commande.montant, suivi.id AS id_suivi, suivi.Etat, document.titre FROM `commandedocument` INNER JOIN commande ON commande.id=commandedocument.id INNER JOIN suivi ON commandedocument.idSuivi=suivi.id INNER JOIN document ON document.id=commandedocument.idLivreDvd WHERE commandedocument.type=\"" + type + "\"";
+            string req = "SELECT commandedocument.*, commande.dateCommande, commande.montant, suivi.id AS id_suivi, suivi.Etat, document.titre " +
+                "FROM `commandedocument` INNER JOIN commande ON commande.id=commandedocument.id INNER JOIN suivi ON commandedocument.idSuivi=suivi.id " +
+                "INNER JOIN document ON document.id=commandedocument.idLivreDvd WHERE commandedocument.type=\"" + type + "\"";
 
             BddMySql curs = BddMySql.GetInstance(connectionString);
             curs.ReqSelect(req, null);
@@ -749,9 +751,7 @@ namespace Mediatek86.modele
                             {
                                 image = (string)curs.Field("image");
                             }
-
                             curs.Close();
-
 
                             req = "insert into exemplaire values (@id, @numero, @DateAchat, @photo, @idEtat)";
                             parameters = new Dictionary<string, object>
@@ -775,8 +775,6 @@ namespace Mediatek86.modele
                         return false;
                     }
                 }
-                
-
                 return true;
             }
             catch
@@ -1052,7 +1050,10 @@ namespace Mediatek86.modele
         public static Livre selectLivreById(string Id)
         {
             Livre livre = new Livre("", "", "", "", "", "", "", "", "", "","", "");
-            string req = "Select l.id, l.ISBN, l.auteur, d.titre, d.image, l.collection, d.idrayon, d.idpublic, d.idgenre, g.libelle as genre, p.libelle as public, r.libelle as rayon from livre l join document d on l.id=d.id join genre g on g.id=d.idGenre join public p on p.id=d.idPublic join rayon r on r.id=d.idRayon WHERE l.id="+Id+" order by titre;";
+            string req = "Select l.id, l.ISBN, l.auteur, d.titre, d.image, l.collection," +
+                "d.idrayon, d.idpublic, d.idgenre, g.libelle as genre, p.libelle as public," +
+                "r.libelle as rayon from livre l join document d on l.id=d.id join genre g on g.id=d.idGenre" +
+                "join public p on p.id=d.idPublic join rayon r on r.id=d.idRayon WHERE l.id="+Id+" order by titre;";
 
             BddMySql curs = BddMySql.GetInstance(connectionString);
             curs.ReqSelect(req, null);
@@ -1199,7 +1200,8 @@ namespace Mediatek86.modele
         public static List<Abonnement> GetAllAbonnementEpiration()
         {
             List<Abonnement> lesAbonnement = new List<Abonnement>();
-            string req = "SELECT commande.*, abonnement.dateFinAbonnement, abonnement.idRevue FROM abonnement INNER JOIN commande ON commande.id=abonnement.id WHERE abonnement.dateFinAbonnement<'"
+            string req = "SELECT commande.*, abonnement.dateFinAbonnement, abonnement.idRevue FROM abonnement" +
+                "INNER JOIN commande ON commande.id=abonnement.id WHERE abonnement.dateFinAbonnement<'"
                 + DateTime.Now.AddDays(30).ToString("yyyy-MM-dd")
                 + "' AND abonnement.dateFinAbonnement >'" +
                 DateTime.Now.ToString("yyyy-MM-dd") + "' ORDER BY abonnement.dateFinAbonnement";
@@ -1266,7 +1268,8 @@ namespace Mediatek86.modele
         public static int checkUserLogin(string pseudo, string pass)
         {
             string resultreq = "4";
-            string req = "SELECT service.droits FROM `service` INNER join utilisateur WHERE utilisateur.pseudopost='"+pseudo+"'AND utilisateur.password='"+pass+"' AND utilisateur.pseudopost=service.poste;";
+            string req = "SELECT service.droits FROM `service` INNER join utilisateur WHERE " +
+                "utilisateur.pseudopost='"+pseudo+"'AND utilisateur.password='"+pass+"' AND utilisateur.pseudopost=service.poste;";
 
             BddMySql curs = BddMySql.GetInstance(connectionString);
             curs.ReqSelect(req, null);
@@ -1279,7 +1282,7 @@ namespace Mediatek86.modele
             curs.Close();
             return result;
         }
-
+      
         /// <summary>
         /// Check si une date se situe entre deux autres
         /// </summary>

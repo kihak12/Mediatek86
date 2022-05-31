@@ -279,7 +279,7 @@ namespace Mediatek86.controleur
         }
 
         /// <summary>
-        /// getter sur la liste des commandes livres
+        /// vérifie les la connexion
         /// </summary>
         /// <returns>Collection d'objets Livre</returns>
         public int checkUserLogin(string pseudo, string password)
