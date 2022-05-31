@@ -60,11 +60,6 @@ namespace Mediatek86.vue
                 {
                     MessageBox.Show("Identifiants incorrects");
                 }
-                else if (result == 3)
-                {
-                    MessageBox.Show("Vos droits ne sont pas suffisants pour accéder à cette application");
-                    this.Close();
-                }
                 else
                 {
                     this.Hide();

@@ -183,7 +183,7 @@ namespace Mediatek86.modele
         public static List<Dvd> GetAllDvd()
         {
             List<Dvd> lesDvd = new List<Dvd>();
-            string req = "Select l.id, l.duree, l.realisateur, d.titre, d.image, l.synopsis, ";
+            string req = "Select l.id, l.duree, l.realisateur, d.titre, d.image, l.synopsis, l.url, ";
             req += "d.idrayon, d.idpublic, d.idgenre, g.libelle as genre, p.libelle as public, r.libelle as rayon ";
             req += "from dvd l join document d on l.id=d.id ";
             req += "join genre g on g.id=d.idGenre ";
@@ -208,8 +208,9 @@ namespace Mediatek86.modele
                 string genre = (string)curs.Field("genre");
                 string lepublic = (string)curs.Field("public");
                 string rayon = (string)curs.Field("rayon");
+                string url = (string)curs.Field("url");
                 Dvd dvd = new Dvd(id, titre, image, duree, realisateur, synopsis, idgenre, genre,
-                    idpublic, lepublic, idrayon, rayon);
+                    idpublic, lepublic, idrayon, rayon, url);
                 lesDvd.Add(dvd);
             }
             curs.Close();
@@ -594,13 +595,14 @@ namespace Mediatek86.modele
                 curs.ReqUpdate(req, parameters);
                 curs.Close();
 
-                req = "UPDATE dvd SET synopsis=@synopsis, realisateur=@realisateur, duree=@duree WHERE id=(@id)";
+                req = "UPDATE dvd SET synopsis=@synopsis, realisateur=@realisateur, duree=@duree, url=@url WHERE id=(@id)";
                 parameters = new Dictionary<string, object>
                 {
                     { "@synopsis", dvd.Synopsis},
                     { "@realisateur", dvd.Realisateur},
                     { "@duree", dvd.Duree},
                     { "@id", dvd.Id},
+                    { "@url", dvd.Url},
                 };
                 curs = BddMySql.GetInstance(connectionString);
                 curs.ReqUpdate(req, parameters);
@@ -1088,7 +1090,7 @@ namespace Mediatek86.modele
         /// <returns></returns>
         public static Dvd selectDvdById(string Id)
         {
-            Dvd livre = new Dvd("", "", "", 0, "", "", "", "", "", "", "", "");
+            Dvd livre = new Dvd("", "", "", 0, "", "", "", "", "", "", "", "", "");
             string req = "Select l.id, l.duree, l.realisateur, d.titre, d.image, l.synopsis, d.idrayon, d.idpublic, d.idgenre, g.libelle as genre, p.libelle as public, r.libelle as rayon from dvd l join document d on l.id=d.id join genre g on g.id=d.idGenre join public p on p.id=d.idPublic join rayon r on r.id=d.idRayon WHERE l.id=" + Id + " order by titre;";
 
             BddMySql curs = BddMySql.GetInstance(connectionString);
@@ -1108,8 +1110,9 @@ namespace Mediatek86.modele
                 string genre = (string)curs.Field("genre");
                 string lepublic = (string)curs.Field("public");
                 string rayon = (string)curs.Field("rayon");
+                string url = (string)curs.Field("url");
                 livre = new Dvd(id, titre, image, duree, realisateur, synopsis, idgenre, genre,
-                    idpublic, lepublic, idrayon, rayon);
+                    idpublic, lepublic, idrayon, rayon, url);
             }
 
             curs.Close();

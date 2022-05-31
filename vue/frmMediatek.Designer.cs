@@ -433,6 +433,13 @@ namespace Mediatek86.vue
             this.label134 = new System.Windows.Forms.Label();
             this.txbRevuesNumRechercheCommande = new System.Windows.Forms.TextBox();
             this.dgvRevuesListeBdd = new System.Windows.Forms.DataGridView();
+            this.txbDvdUrl = new System.Windows.Forms.TextBox();
+            this.label158 = new System.Windows.Forms.Label();
+            this.button2 = new System.Windows.Forms.Button();
+            this.txbDvdUrlModif = new System.Windows.Forms.TextBox();
+            this.label159 = new System.Windows.Forms.Label();
+            this.txbDvdsUrlCommandeCreate = new System.Windows.Forms.TextBox();
+            this.label160 = new System.Windows.Forms.Label();
             this.tabOngletsApplication.SuspendLayout();
             this.tabLivres.SuspendLayout();
             this.groupBox1.SuspendLayout();
@@ -1144,6 +1151,8 @@ namespace Mediatek86.vue
             // 
             // groupBox2
             // 
+            this.groupBox2.Controls.Add(this.txbDvdUrlModif);
+            this.groupBox2.Controls.Add(this.label159);
             this.groupBox2.Controls.Add(this.txbDvdSynopsisModif);
             this.groupBox2.Controls.Add(this.cbxDvdRayonsModif);
             this.groupBox2.Controls.Add(this.cbxDvdPublicsModif);
@@ -1209,7 +1218,7 @@ namespace Mediatek86.vue
             // BtnDvdSuppr
             // 
             this.BtnDvdSuppr.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.BtnDvdSuppr.Location = new System.Drawing.Point(218, 349);
+            this.BtnDvdSuppr.Location = new System.Drawing.Point(218, 368);
             this.BtnDvdSuppr.Name = "BtnDvdSuppr";
             this.BtnDvdSuppr.Size = new System.Drawing.Size(96, 22);
             this.BtnDvdSuppr.TabIndex = 34;
@@ -1220,7 +1229,7 @@ namespace Mediatek86.vue
             // BtnDvdModif
             // 
             this.BtnDvdModif.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.BtnDvdModif.Location = new System.Drawing.Point(116, 349);
+            this.BtnDvdModif.Location = new System.Drawing.Point(116, 368);
             this.BtnDvdModif.Name = "BtnDvdModif";
             this.BtnDvdModif.Size = new System.Drawing.Size(96, 22);
             this.BtnDvdModif.TabIndex = 33;
@@ -1238,7 +1247,7 @@ namespace Mediatek86.vue
             // BtnDvdAjout
             // 
             this.BtnDvdAjout.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.BtnDvdAjout.Location = new System.Drawing.Point(14, 349);
+            this.BtnDvdAjout.Location = new System.Drawing.Point(14, 368);
             this.BtnDvdAjout.Name = "BtnDvdAjout";
             this.BtnDvdAjout.Size = new System.Drawing.Size(96, 22);
             this.BtnDvdAjout.TabIndex = 17;
@@ -1366,6 +1375,9 @@ namespace Mediatek86.vue
             // 
             // grpDvdInfos
             // 
+            this.grpDvdInfos.Controls.Add(this.button2);
+            this.grpDvdInfos.Controls.Add(this.txbDvdUrl);
+            this.grpDvdInfos.Controls.Add(this.label158);
             this.grpDvdInfos.Controls.Add(this.txbDvdDuree);
             this.grpDvdInfos.Controls.Add(this.txbDvdImage);
             this.grpDvdInfos.Controls.Add(this.txbDvdRayon);
@@ -1481,7 +1493,7 @@ namespace Mediatek86.vue
             // 
             this.pcbDvdImage.Location = new System.Drawing.Point(560, 19);
             this.pcbDvdImage.Name = "pcbDvdImage";
-            this.pcbDvdImage.Size = new System.Drawing.Size(284, 210);
+            this.pcbDvdImage.Size = new System.Drawing.Size(284, 159);
             this.pcbDvdImage.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
             this.pcbDvdImage.TabIndex = 21;
             this.pcbDvdImage.TabStop = false;
@@ -3901,6 +3913,8 @@ namespace Mediatek86.vue
             // 
             // groupBox15
             // 
+            this.groupBox15.Controls.Add(this.txbDvdsUrlCommandeCreate);
+            this.groupBox15.Controls.Add(this.label160);
             this.groupBox15.Controls.Add(this.dgvCommandesDvdsListeBdd);
             this.groupBox15.Controls.Add(this.nudDvdsNombreCommandeCreate);
             this.groupBox15.Controls.Add(this.nudDvdsPrixCommandeCreate);
@@ -3939,7 +3953,7 @@ namespace Mediatek86.vue
             this.dgvCommandesDvdsListeBdd.AllowUserToResizeColumns = false;
             this.dgvCommandesDvdsListeBdd.AllowUserToResizeRows = false;
             this.dgvCommandesDvdsListeBdd.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.dgvCommandesDvdsListeBdd.Location = new System.Drawing.Point(9, 404);
+            this.dgvCommandesDvdsListeBdd.Location = new System.Drawing.Point(9, 419);
             this.dgvCommandesDvdsListeBdd.MultiSelect = false;
             this.dgvCommandesDvdsListeBdd.Name = "dgvCommandesDvdsListeBdd";
             this.dgvCommandesDvdsListeBdd.ReadOnly = true;
@@ -3952,7 +3966,7 @@ namespace Mediatek86.vue
             // nudDvdsNombreCommandeCreate
             // 
             this.nudDvdsNombreCommandeCreate.DecimalPlaces = 2;
-            this.nudDvdsNombreCommandeCreate.Location = new System.Drawing.Point(150, 338);
+            this.nudDvdsNombreCommandeCreate.Location = new System.Drawing.Point(150, 363);
             this.nudDvdsNombreCommandeCreate.Maximum = new decimal(new int[] {
             99999,
             0,
@@ -3965,7 +3979,7 @@ namespace Mediatek86.vue
             // nudDvdsPrixCommandeCreate
             // 
             this.nudDvdsPrixCommandeCreate.DecimalPlaces = 2;
-            this.nudDvdsPrixCommandeCreate.Location = new System.Drawing.Point(150, 306);
+            this.nudDvdsPrixCommandeCreate.Location = new System.Drawing.Point(150, 331);
             this.nudDvdsPrixCommandeCreate.Maximum = new decimal(new int[] {
             99999,
             0,
@@ -4024,7 +4038,7 @@ namespace Mediatek86.vue
             // 
             this.label123.AutoSize = true;
             this.label123.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label123.Location = new System.Drawing.Point(6, 308);
+            this.label123.Location = new System.Drawing.Point(6, 333);
             this.label123.Name = "label123";
             this.label123.Size = new System.Drawing.Size(89, 13);
             this.label123.TabIndex = 55;
@@ -4034,7 +4048,7 @@ namespace Mediatek86.vue
             // 
             this.label124.AutoSize = true;
             this.label124.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label124.Location = new System.Drawing.Point(6, 332);
+            this.label124.Location = new System.Drawing.Point(6, 357);
             this.label124.Name = "label124";
             this.label124.Size = new System.Drawing.Size(95, 26);
             this.label124.TabIndex = 53;
@@ -4051,7 +4065,7 @@ namespace Mediatek86.vue
             // btnDvdsCommandeCommander
             // 
             this.btnDvdsCommandeCommander.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnDvdsCommandeCommander.Location = new System.Drawing.Point(88, 370);
+            this.btnDvdsCommandeCommander.Location = new System.Drawing.Point(84, 389);
             this.btnDvdsCommandeCommander.Name = "btnDvdsCommandeCommander";
             this.btnDvdsCommandeCommander.Size = new System.Drawing.Size(136, 22);
             this.btnDvdsCommandeCommander.TabIndex = 17;
@@ -4744,6 +4758,70 @@ namespace Mediatek86.vue
             this.dgvRevuesListeBdd.ColumnHeaderMouseClick += new System.Windows.Forms.DataGridViewCellMouseEventHandler(this.dgvRevuesListeBdd_ColumnHeaderMouseClick);
             this.dgvRevuesListeBdd.SelectionChanged += new System.EventHandler(this.dgvRevuesListeBdd_SelectionChanged);
             // 
+            // txbDvdUrl
+            // 
+            this.txbDvdUrl.Location = new System.Drawing.Point(634, 215);
+            this.txbDvdUrl.Name = "txbDvdUrl";
+            this.txbDvdUrl.ReadOnly = true;
+            this.txbDvdUrl.Size = new System.Drawing.Size(126, 20);
+            this.txbDvdUrl.TabIndex = 34;
+            // 
+            // label158
+            // 
+            this.label158.AutoSize = true;
+            this.label158.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label158.Location = new System.Drawing.Point(557, 218);
+            this.label158.Name = "label158";
+            this.label158.Size = new System.Drawing.Size(62, 13);
+            this.label158.TabIndex = 33;
+            this.label158.Text = "Url teaser";
+            // 
+            // button2
+            // 
+            this.button2.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.button2.Location = new System.Drawing.Point(775, 215);
+            this.button2.Name = "button2";
+            this.button2.Size = new System.Drawing.Size(78, 22);
+            this.button2.TabIndex = 54;
+            this.button2.Text = "Visionner";
+            this.button2.UseVisualStyleBackColor = true;
+            this.button2.Click += new System.EventHandler(this.button2_Click);
+            // 
+            // txbDvdUrlModif
+            // 
+            this.txbDvdUrlModif.Location = new System.Drawing.Point(150, 336);
+            this.txbDvdUrlModif.Name = "txbDvdUrlModif";
+            this.txbDvdUrlModif.Size = new System.Drawing.Size(164, 20);
+            this.txbDvdUrlModif.TabIndex = 55;
+            // 
+            // label159
+            // 
+            this.label159.AutoSize = true;
+            this.label159.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label159.Location = new System.Drawing.Point(6, 339);
+            this.label159.Name = "label159";
+            this.label159.Size = new System.Drawing.Size(62, 13);
+            this.label159.TabIndex = 54;
+            this.label159.Text = "Url teaser";
+            // 
+            // txbDvdsUrlCommandeCreate
+            // 
+            this.txbDvdsUrlCommandeCreate.Location = new System.Drawing.Point(150, 305);
+            this.txbDvdsUrlCommandeCreate.Name = "txbDvdsUrlCommandeCreate";
+            this.txbDvdsUrlCommandeCreate.ReadOnly = true;
+            this.txbDvdsUrlCommandeCreate.Size = new System.Drawing.Size(164, 20);
+            this.txbDvdsUrlCommandeCreate.TabIndex = 66;
+            // 
+            // label160
+            // 
+            this.label160.AutoSize = true;
+            this.label160.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label160.Location = new System.Drawing.Point(6, 308);
+            this.label160.Name = "label160";
+            this.label160.Size = new System.Drawing.Size(70, 13);
+            this.label160.TabIndex = 65;
+            this.label160.Text = "Url teaser :";
+            // 
             // FrmMediatek
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -5252,6 +5330,13 @@ namespace Mediatek86.vue
         private System.Windows.Forms.TextBox txbLivresAuteurCommande;
         private System.Windows.Forms.TextBox txbLivresRelanceCommande;
         private System.Windows.Forms.TextBox txbRevuesPeriodiciteCommande;
+        private System.Windows.Forms.Button button2;
+        private System.Windows.Forms.TextBox txbDvdUrl;
+        private System.Windows.Forms.Label label158;
+        private System.Windows.Forms.TextBox txbDvdUrlModif;
+        private System.Windows.Forms.Label label159;
+        private System.Windows.Forms.TextBox txbDvdsUrlCommandeCreate;
+        private System.Windows.Forms.Label label160;
     }
 }
 

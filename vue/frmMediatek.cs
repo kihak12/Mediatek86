@@ -57,7 +57,7 @@ namespace Mediatek86.vue
         /// <param name="droits"></param>
         public void setDroits(int droits)
         {
-            if(droits == 2)
+            if(droits == 2 || droits == 3)
             {
                 ((Control)this.tabCommandeLivres).Enabled = false;
                 ((Control)this.tabCommandeDvd).Enabled = false;
@@ -1066,12 +1066,14 @@ namespace Mediatek86.vue
             txbDvdPublic.Text = dvd.Public;
             txbDvdRayon.Text = dvd.Rayon;
             txbDvdTitre.Text = dvd.Titre;
+            txbDvdUrl.Text = dvd.Url;
             string image = dvd.Image;
 
             txbDvdRealisateurModif.Text = dvd.Realisateur;
             txbDvdSynopsisModif.Text = dvd.Synopsis;
             txbDvdImageModif.Text = dvd.Image;
             txbDvdDureeModif.Text = dvd.Duree.ToString();
+            txbDvdUrlModif.Text = dvd.Url;
             txbDvdNumeroModif.Text = dvd.Id;
             txbDvdTitreModif.Text = dvd.Titre;
 
@@ -1106,6 +1108,7 @@ namespace Mediatek86.vue
             txbDvdPublic.Text = "";
             txbDvdRayon.Text = "";
             txbDvdTitre.Text = "";
+            txbDvdUrl.Text = "";
             pcbDvdImage.Image = null;
         }
 
@@ -1298,7 +1301,8 @@ namespace Mediatek86.vue
                 publicId,
                 cbxDvdPublicsModif.Text,
                 rayonId,
-                cbxDvdRayonsModif.Text
+                cbxDvdRayonsModif.Text,
+                txbDvdUrlModif.Text
                 );
             if (controle.CreerDvd(dvd))
             {
@@ -1348,7 +1352,8 @@ namespace Mediatek86.vue
                 publicId,
                 cbxDvdPublicsModif.Text,
                 rayonId,
-                cbxDvdRayonsModif.Text
+                cbxDvdRayonsModif.Text,
+                txbDvdUrlModif.Text
                 );
             if ((MessageBox.Show("Êtes vous sur de vouloir Modifier ce Dvd ?\nSi Le numéro de document a été modifier, il ne sera pas pris en compte, il conservera celui d'origine.", "Modification d'un Dvd", MessageBoxButtons.YesNo, MessageBoxIcon.Question, MessageBoxDefaultButton.Button1) == System.Windows.Forms.DialogResult.Yes))
             {
@@ -2400,6 +2405,7 @@ namespace Mediatek86.vue
             txbCommandeDvdsPublics.Text = dvd.Public;
             txbCommandeDvdsRayons.Text = dvd.Rayon;
             txbDvdsDureeCommandeCreate.Text = dvd.Duree.ToString();
+            txbDvdsUrlCommandeCreate.Text = dvd.Url;
         }
 
         private void btnDvdsCommandeSetEnCours_Click(object sender, EventArgs e)
@@ -2596,7 +2602,8 @@ namespace Mediatek86.vue
                     publicId,
                     txbCommandeLivresPublics.Text,
                     rayonId,
-                    txbCommandeLivresRayons.Text
+                    txbCommandeLivresRayons.Text,
+                    txbDvdsUrlCommandeCreate.Text
                     );
 
                 if (controle.CreerCommandeDvd(commande, dvd))
@@ -2900,8 +2907,12 @@ namespace Mediatek86.vue
         }
 
 
+
         #endregion
 
-
+        private void button2_Click(object sender, EventArgs e)
+        {
+            System.Diagnostics.Process.Start(txbDvdUrl.Text);
+        }
     }
 }
